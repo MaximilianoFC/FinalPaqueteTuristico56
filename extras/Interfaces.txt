@@ -1,0 +1,41 @@
+ciudad:
+crear ciudad, eliminar ciudad.
+cambiarle nombre, provincia y pais.
+-nueva
+-modificar
+-borrar
+
+
+
+alojamiento: 
+crear, eliminar.
+cambiarle fechas, cambiarle tipo?(hotel, departamento, hostel)
+¿tiene desayuno?, ¿tiene menu?
+tiene importe diario que hay que informar.
+indicar ciudad.
+a partir de las fechas indicar temporada baja, media o alta al usuario.
+-crear
+-modificar
+-borrar
+-calcular temporada alta media o baja.
+
+
+pasaje: 
+3 tipos, avion, colectivo, taxi.
+depende el tipo, dara el importe ida y vuelta.
+-
+
+
+
+---------------------------
+
+-luego de seleccionar todo, el usuario indica la cantidad de dias de estadia.
+-se indica el costo total (dias estadia + alojamiendo/pasaje * temporada alta/media/baja)
+-el presupuesto es para un solo cliente, en el formulario indicar si son varios y calcular costo.
+**Se debería poder sacar presupuestos de distintas elecciones de un cliente.**
+
+A TENER EN CUENTA:
+Dado un destino se podrían ver alojamientos posibles hay, en ese destino.
+Dado una ciudad se podrán ver los transportes disponibles.
+Se puede cambiar de fechas para abaratar costos.
+Se puede saber si la temporada es alta, media o baja según la fecha seleccionada en el destino.
