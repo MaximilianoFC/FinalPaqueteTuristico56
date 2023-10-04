@@ -5,6 +5,8 @@
  */
 package finalpaqueteturistico56;
 
+import clases.CiudadData;
+
 /**
  *
  * @author Villa
@@ -15,7 +17,8 @@ public class FinalPaqueteTuristico56 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Conexion.getConexion();
+        CiudadData prueba = new CiudadData();
+        prueba.agregarCiudad("Cipolletti", "Argentina", "Rio negro");
     }
     
 }
