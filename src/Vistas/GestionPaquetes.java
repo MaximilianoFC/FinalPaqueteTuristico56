@@ -38,7 +38,6 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         jBLimpíar = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1000, 1000));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(189, 238, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 1000));
@@ -50,6 +49,7 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
 
         jSalir.setFont(new java.awt.Font("Dialog", 1, 48)); // NOI18N
         jSalir.setText("X");
+        jSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jSalir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jSalirMouseClicked(evt);
@@ -112,16 +112,29 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 1000));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSalirMouseClicked
-        // TODO add your handling code here:
-        dispose();
+         // Abrir menu salida
+         MenuSalida MS = new MenuSalida(); 
+       //con getDesktopPane tengo acceso al desktopPane desde el jinternalFrame
+        getDesktopPane().add(MS);
+        MS.setVisible(true);    
+              
     }//GEN-LAST:event_jSalirMouseClicked
-
+   
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBGuardarActionPerformed

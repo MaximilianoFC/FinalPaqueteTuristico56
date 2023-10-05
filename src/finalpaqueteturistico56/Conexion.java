@@ -11,7 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-
+//autor maxi
 public class Conexion {
     //inicializo las variables a usar.
   private static final String URL="jdbc:mariadb://localhost/";
