@@ -5,52 +5,71 @@ package Entidades;
  * @author Ivana
  */
 public class Paquete {
-    private int idCiudad;
-    private String nombre;
-    private String pais;
+    private int idPaquete;
+    private Ciudad origen;
+    private Ciudad destino;
+    private Alojamiento alojamiento;
+    private Pasaje pasaje;
     private  boolean estado;
-    private String provincia;
 
     public Paquete() {
     }
 
-    public Paquete(int idCiudad, String nombre, String pais, boolean estado, String provincia) {
-        this.idCiudad = idCiudad;
-        this.nombre = nombre;
-        this.pais = pais;
-        this.estado = estado;
-        this.provincia = provincia;
+    public Paquete(int idPaquete, Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, boolean estado) {
+        this.idPaquete = idPaquete;
+        this.origen = origen;
+        this.destino = destino;
+        this.alojamiento = alojamiento;
+        this.pasaje = pasaje;
+        this.estado=estado;
     }
 
-    public Paquete(String nombre, String pais, boolean estado, String provincia) {
-        this.nombre = nombre;
-        this.pais = pais;
-        this.estado = estado;
-        this.provincia = provincia;
+    public Paquete(Ciudad origen, Ciudad destino, Alojamiento alojamiento, Pasaje pasaje, boolean estado) {
+        this.origen = origen;
+        this.destino = destino;
+        this.alojamiento = alojamiento;
+        this.pasaje = pasaje;
+        this.estado=estado;
     }
 
-    public int getIdCiudad() {
-        return idCiudad;
+    public int getIdPaquete() {
+        return idPaquete;
     }
 
-    public void setIdCiudad(int idCiudad) {
-        this.idCiudad = idCiudad;
+    public void setIdPaquete(int idPaquete) {
+        this.idPaquete = idPaquete;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Ciudad getOrigen() {
+        return origen;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setOrigen(Ciudad origen) {
+        this.origen = origen;
     }
 
-    public String getPais() {
-        return pais;
+    public Ciudad getDestino() {
+        return destino;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setDestino(Ciudad destino) {
+        this.destino = destino;
+    }
+
+    public Alojamiento getAlojamiento() {
+        return alojamiento;
+    }
+
+    public void setAlojamiento(Alojamiento alojamiento) {
+        this.alojamiento = alojamiento;
+    }
+
+    public Pasaje getPasaje() {
+        return pasaje;
+    }
+
+    public void setPasaje(Pasaje pasaje) {
+        this.pasaje = pasaje;
     }
 
     public boolean isEstado() {
@@ -60,18 +79,11 @@ public class Paquete {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
-    }
-
-    @Override
-    public String toString() {
-        return "Paquete{" + "idCiudad=" + idCiudad + ", nombre=" + nombre + ", pais=" + pais + ", estado=" + estado + ", provincia=" + provincia + '}';
-    }
     
+     @Override
+    public String toString() {
+    return "Paquete{" + "idPaquete=" + idPaquete + ", idCiudadOrigen=" + origen.getNombre() + ", idCiudadOrigen=" + origen.getProvincia() + ", idCiudadDestino=" + destino.getNombre() + ", idCiudadDestino=" + destino.getProvincia()+'}';
+    
+    }
 }
+
