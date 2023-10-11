@@ -28,7 +28,7 @@ public class PaqueteData {
     public void agregarPaquete(Paquete paquete) {
         /*recibe un paquete compuesto por dos ciudades, un alojamiento, 
         un pasaje y un estado*/
-        
+                
         String sql= "INSERT INTO paquete (idCiudadOrigen, idCiudadDestino, idAlojamiento, idPasaje, estado) VALUES (?, ?, ?, ?, ?)";
         
          try {
@@ -36,12 +36,11 @@ public class PaqueteData {
              
              /*extraemos los datos que necesitamos de los objetos que componen 
             el paquete y reemplazamos las variables dinamicas con estos datos*/
-             
-             ps.setInt(1, paquete.getOrigen().getIdCiudad());
-             ps.setInt(2, paquete.getDestino().getIdCiudad());
-             ps.setInt(3, paquete.getAlojamiento().getIdAlojamiento());
-             ps.setInt(4, paquete.getPasaje().getIdPasaje());
-             ps.setBoolean(5, paquete.isEstado());
+            ps.setInt(1,2); 
+             ps.setInt(2,3);
+             ps.setInt(3,1);
+             ps.setInt(4,1);
+             ps.setBoolean(5,true);
              
              ps.executeUpdate();
              ResultSet rs=ps.getGeneratedKeys();
