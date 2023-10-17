@@ -1,25 +1,45 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vistas;
 
+import Entidades.Ciudad;
 import java.awt.Dimension;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import finalpaqueteturistico56.Conexion;
 
         
-public class GestionAlojamiento extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form MenuAlojamiento
-     */
-          
-    public GestionAlojamiento() {
+public final class GestionAlojamiento extends javax.swing.JInternalFrame {
+ Connection con = Conexion.getConexion();
+ //creo el modelo de la tabla y dentro de este, modifico el metodo para que ninguna celda sea editable
+ private final DefaultTableModel modelo = new DefaultTableModel(){
+   @Override
+   public boolean isCellEditable(int fila, int colum){
+     return false;      
+ }
+ };
+ 
+   public GestionAlojamiento() throws SQLException {
         initComponents();
-         QuitarLaBarraTitulo();
+        QuitarLaBarraTitulo(); 
+        cargarCiudadesJCB();
+        cargarCabeceraTabla();
+        cargarAlojamientosTabla();
+        cambiarAnchoColumnas();       
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,6 +57,29 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         jBGuardar = new javax.swing.JButton();
         jBNuevo = new javax.swing.JButton();
         jBLimpíar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jCBCiudades = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jTTipo = new javax.swing.JTextField();
+        jTServicios = new javax.swing.JTextField();
+        jTImporte = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jBfechaEgreso = new javax.swing.JButton();
+        jBFechaIngreso = new javax.swing.JButton();
+        jTFechaIngreso = new javax.swing.JTextField();
+        jTFechaEgreso = new javax.swing.JTextField();
+        jLAyuda = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTAlojamientos = new javax.swing.JTable();
+        jBBuscar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jTIDbuscar = new javax.swing.JTextField();
+        jREstado = new javax.swing.JRadioButton();
+        jLabel10 = new javax.swing.JLabel();
+        jCalendar = new com.toedter.calendar.JCalendar();
 
         jPanel1.setBackground(new java.awt.Color(189, 238, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 1000));
@@ -57,6 +100,11 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
 
         jBBorrar.setBackground(new java.awt.Color(255, 255, 255));
         jBBorrar.setText("Borrar");
+        jBBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBorrarActionPerformed(evt);
+            }
+        });
 
         jBGuardar.setBackground(new java.awt.Color(255, 255, 255));
         jBGuardar.setText("Guardar");
@@ -68,47 +116,232 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
 
         jBNuevo.setBackground(new java.awt.Color(255, 255, 255));
         jBNuevo.setText("Nuevo");
+        jBNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNuevoActionPerformed(evt);
+            }
+        });
 
         jBLimpíar.setBackground(new java.awt.Color(255, 255, 255));
         jBLimpíar.setText("Limpiar");
+        jBLimpíar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLimpíarActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel3.setText("Tipo Alojamiento:");
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel4.setText("Servicios:");
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel5.setText("Importe Diario:");
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel6.setText("Ciudad:");
+
+        jTTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTTipoActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel7.setText("Fecha de Salida:");
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel8.setText("Fecha de Ingreso:");
+
+        jBfechaEgreso.setText("Establecer fecha");
+        jBfechaEgreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBfechaEgresoActionPerformed(evt);
+            }
+        });
+
+        jBFechaIngreso.setText("Establecer fecha");
+        jBFechaIngreso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBFechaIngresoActionPerformed(evt);
+            }
+        });
+
+        jTFechaIngreso.setEditable(false);
+
+        jTFechaEgreso.setEditable(false);
+
+        jLAyuda.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLAyuda.setText("?");
+        jLAyuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLAyudaMouseEntered(evt);
+            }
+        });
+
+        jTAlojamientos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTAlojamientos);
+
+        jBBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        jBBuscar.setText("Buscar");
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel9.setText("ID:");
+
+        jREstado.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jREstado.setText("Activo/Inactivo");
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel10.setText("Estado:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSalir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(147, 147, 147)
+                .addGap(180, 180, 180)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(jBLimpíar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBBorrar))
-                    .addComponent(jLabel1)))
+                        .addComponent(jBBorrar)))
+                .addGap(3, 3, 3))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel9)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3))
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCBCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jTIDbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBBuscar))
+                                .addComponent(jTTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(175, 175, 175)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jTFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBfechaEgreso))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jTFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jBFechaIngreso))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(111, 111, 111)
+                                .addComponent(jREstado)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLAyuda)
+                        .addGap(84, 84, 84)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 654, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSalir)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jBBuscar)
+                            .addComponent(jLabel9)
+                            .addComponent(jTIDbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jTTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jTServicios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jTImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jCBCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jBFechaIngreso)
+                                    .addComponent(jTFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jBfechaEgreso)
+                                    .addComponent(jTFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jREstado)
+                                    .addComponent(jLabel10)))
+                            .addComponent(jCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addComponent(jLAyuda)
+                        .addGap(248, 248, 248)))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBBorrar)
                     .addComponent(jBGuardar)
                     .addComponent(jBNuevo)
                     .addComponent(jBLimpíar))
                 .addGap(29, 29, 29))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSalir)
-                    .addComponent(jLabel2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -125,28 +358,174 @@ public class GestionAlojamiento extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSalirMouseClicked
-        // Abrir menu salida
-         MenuSalida MS = new MenuSalida(); 
-         //con getDesktopPane tengo acceso al desktopPane desde el jinternalFrame
-        getDesktopPane().add(MS);
-        MS.setVisible(true);    
-    }//GEN-LAST:event_jSalirMouseClicked
+    private void jTTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTTipoActionPerformed
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        // TODO add your handling code here:
+        // clic en boton guardar para guardar modificacion
+        //llama al metodo update y le pasa el estado del booleano.
+        updateAlojamiento(jREstado.isSelected());   
+         limpiarTabla();
+        cargarAlojamientosTabla();
     }//GEN-LAST:event_jBGuardarActionPerformed
+
+    private void jSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSalirMouseClicked
+        // Abrir menu salida
+        MenuSalida MS = new MenuSalida();
+        //con getDesktopPane tengo acceso al desktopPane desde el jinternalFrame
+        getDesktopPane().add(MS);
+        MS.setVisible(true);
+    }//GEN-LAST:event_jSalirMouseClicked
+
+    private void jLAyudaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAyudaMouseEntered
+        // se coloca el mouse sobre el icono ?
+        jLAyuda.setToolTipText("Seleccione una fecha en el calendario y luego haga clic en el boton establecer fecha correspondiente");
+        
+    }//GEN-LAST:event_jLAyudaMouseEntered
+
+    private void jBFechaIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFechaIngresoActionPerformed
+        // clic en el primer boton establecer fecha
+        //Convierto el date seleccionado del jcalendar a un LocalDate.
+        LocalDate fechain = jCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+        //convierto en LocalDate a String y lo muestro en el jtextfield que indica la fecha de ingreso
+       jTFechaIngreso.setText(fechain.toString());        
+    }//GEN-LAST:event_jBFechaIngresoActionPerformed
+
+    private void jBfechaEgresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBfechaEgresoActionPerformed
+         // clic en el segundo boton establecer fecha
+        //Convierto el date seleccionado del jcalendar a un LocalDate.
+        LocalDate fechasa = jCalendar.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+        //convierto en LocalDate a String y lo muestro en el jtextfield que indica la fecha de salida
+       jTFechaEgreso.setText(fechasa.toString());    
+    }//GEN-LAST:event_jBfechaEgresoActionPerformed
+
+    private void jBLimpíarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpíarActionPerformed
+        //Clic en boton limpiar
+        jTIDbuscar.setText(null);
+        jTTipo.setText(null);
+        jTServicios.setText(null);
+        jTImporte.setText(null);
+        jTFechaIngreso.setText(null);
+        jTFechaEgreso.setText(null);
+        jCBCiudades.setSelectedItem(null);
+        jREstado.setSelected(false);
+    }//GEN-LAST:event_jBLimpíarActionPerformed
+
+    private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
+        // crear nuevo Alojamiento            
+        String sql = "INSERT INTO alojamiento  (fechaIn, fechaOn, estado, tipo, servicio, importeDiario, idCiudadDestino) VALUES (?,?,?,?,?,?,?)";
+        try ( PreparedStatement statement = con.prepareStatement(sql)) {
+         
+          // preparo la sentencia tomando los valores ingresados por el usuario  
+          //convierto el String del textfield que tiene una fecha a un Date
+        Date fechain= new SimpleDateFormat("yyyy-MM-dd").parse(jTFechaIngreso.getText());  
+        Date fechasa = new SimpleDateFormat("yyyy-MM-dd").parse(jTFechaEgreso.getText());  
+        java.sql.Date sqlfecha1 = new java.sql.Date(fechain.getTime());
+        java.sql.Date sqlfecha2 = new java.sql.Date(fechasa.getTime());
+        statement.setDate(1, sqlfecha1);
+        statement.setDate(2, sqlfecha2);
+        statement.setBoolean(3, jREstado.isSelected());
+        statement.setString(4,jTTipo.getText());
+        statement.setString(5,jTServicios.getText());
+        //convierto el string del jtextfield en int
+        statement.setInt(6,Integer.parseInt(jTImporte.getText()));
+        //el objeto selecciona en el jcombobox  lo casteo a la clase ciudad.
+        Ciudad city = (Ciudad) jCBCiudades.getSelectedItem();
+        statement.setInt(7,city.getIdCiudad());  
+        //se manda el insert a la base de datos   
+            statement.executeUpdate();
+            JOptionPane.showMessageDialog(rootPane, "Se inserto un alojamiento en la base de datos");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException ex) {  
+         Logger.getLogger(GestionAlojamiento.class.getName()).log(Level.SEVERE, null, ex);
+     }  
+       limpiarTabla();
+       cargarAlojamientosTabla();        
+    }//GEN-LAST:event_jBNuevoActionPerformed
+
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+      //clic en el boton buscar, hace una consulta SQL y llena los datos de la interfaz con la consulta
+      //para poder editarlos mas facil.
+      //uso el id del campo de texto.
+        int busq;
+     busq = Integer.parseInt(jTIDbuscar.getText());
+      //hago la consulta con ese 1d de alojamiento.
+     try {String SQL = "SELECT* FROM alojamiento WHERE idAlojamiento = ?";
+            PreparedStatement statement = con.prepareStatement(SQL);
+          statement.setInt(1, busq);  
+          ResultSet resultado = statement.executeQuery();
+     
+          while(resultado.next()){
+        //coloco los datos en los campos de texto      
+       jTTipo.setText(resultado.getString("tipo"));
+       jTServicios.setText(resultado.getString("servicio"));
+       jTImporte.setText(Integer.toString(resultado.getInt("importeDiario"))); 
+       jTFechaIngreso.setText(resultado.getDate("fechaIn").toString()); 
+       jTFechaEgreso.setText(resultado.getDate("fechaOn").toString());
+       jREstado.setSelected(resultado.getBoolean("estado"));
+       int idciudad = resultado.getInt("idCiudadDestino");
+      
+      DefaultComboBoxModel<Ciudad> model = (DefaultComboBoxModel<Ciudad>) jCBCiudades.getModel();
+        //recorro el modelo del jcombobox, y itero sus elementos
+                for (int i = 0; i < model.getSize(); i++) {
+                    Ciudad item = model.getElementAt(i);
+                    //si el id que coloco en el textfield para buscar, concuerda con alguna de las 
+                    //ciudades en el jcombobox, la coloco como seleccionada.
+                    if(item.getIdCiudad() == idciudad)
+                    {
+                     jCBCiudades.setSelectedItem(item);
+                    }
+                }
+          }
+     } catch (SQLException ex) {
+         Logger.getLogger(GestionAlojamiento.class.getName()).log(Level.SEVERE, null, ex);
+     }   
+    }//GEN-LAST:event_jBBuscarActionPerformed
+
+    private void jBBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBorrarActionPerformed
+        //llama al metodo update y le pasa un false en el booleano
+        updateAlojamiento(false);  
+        limpiarTabla();
+        cargarAlojamientosTabla();
+    }//GEN-LAST:event_jBBorrarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBorrar;
+    private javax.swing.JButton jBBuscar;
+    private javax.swing.JButton jBFechaIngreso;
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBLimpíar;
     private javax.swing.JButton jBNuevo;
+    private javax.swing.JButton jBfechaEgreso;
+    private javax.swing.JComboBox<Ciudad> jCBCiudades;
+    private com.toedter.calendar.JCalendar jCalendar;
+    private javax.swing.JLabel jLAyuda;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jREstado;
     private javax.swing.JLabel jSalir;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTAlojamientos;
+    private javax.swing.JTextField jTFechaEgreso;
+    private javax.swing.JTextField jTFechaIngreso;
+    private javax.swing.JTextField jTIDbuscar;
+    private javax.swing.JTextField jTImporte;
+    private javax.swing.JTextField jTServicios;
+    private javax.swing.JTextField jTTipo;
     // End of variables declaration//GEN-END:variables
 //quitar barra superior
  private JComponent Barra = ((javax.swing.plaf.basic.BasicInternalFrameUI) getUI()).getNorthPane();
@@ -154,12 +533,129 @@ private Dimension DimensionBarra = null;
 
 public void QuitarLaBarraTitulo()
 {
-Barra = ((javax.swing.plaf.basic.BasicInternalFrameUI) getUI()).getNorthPane();
-DimensionBarra = Barra.getPreferredSize();
-Barra.setSize(0,0);
-Barra.setPreferredSize(new Dimension(0,0));
-repaint();
+        Barra = ((javax.swing.plaf.basic.BasicInternalFrameUI) getUI()).getNorthPane();
+        DimensionBarra = Barra.getPreferredSize();
+        Barra.setSize(0, 0);
+        Barra.setPreferredSize(new Dimension(0, 0));
+        repaint();
+    }
+
+    private void cargarCiudadesJCB() throws SQLException {
+        //primero se hace una consulta con todas las ciudades activas
+        try {
+            String SQL = "SELECT* FROM ciudad WHERE estado=1";
+            PreparedStatement statement = con.prepareStatement(SQL);
+            ResultSet resultado = statement.executeQuery();
+            //recorro la tabla resultante de la consulta y la añado al jcbox
+            while (resultado.next()) {
+                jCBCiudades.addItem(new Ciudad(resultado.getInt("idCiudad"), resultado.getString("nombre"), resultado.getString("pais"), true, resultado.getString("provincia")));
+            }
+        } catch (SQLException e) {
+        }
+    }
+
+private void cargarCabeceraTabla(){
+   modelo.addColumn("id Aloj");
+   modelo.addColumn("Fecha Ingreso");
+   modelo.addColumn("Fecha Salida");
+   modelo.addColumn("Estado");
+   modelo.addColumn("Tipo");
+   modelo.addColumn("Servicio");
+   modelo.addColumn("Importe Diario");
+   modelo.addColumn("Ciudad Destino"); 
+   jTAlojamientos.setModel(modelo);   
+}
+
+private void cambiarAnchoColumnas()
+{       TableColumn id = jTAlojamientos.getColumnModel().getColumn(0);
+        id.setPreferredWidth(8); 
+        TableColumn fechain = jTAlojamientos.getColumnModel().getColumn(1);
+        fechain.setPreferredWidth(30); 
+        TableColumn fechaon = jTAlojamientos.getColumnModel().getColumn(2);
+        fechaon.setPreferredWidth(30); 
+        TableColumn estado = jTAlojamientos.getColumnModel().getColumn(3);
+        id.setPreferredWidth(20); 
+        TableColumn tipo = jTAlojamientos.getColumnModel().getColumn(4);
+        tipo.setPreferredWidth(30); 
+        TableColumn serv = jTAlojamientos.getColumnModel().getColumn(5);
+        serv.setPreferredWidth(100); 
+        TableColumn importe = jTAlojamientos.getColumnModel().getColumn(6);
+        importe.setPreferredWidth(35); 
+        TableColumn ciudad = jTAlojamientos.getColumnModel().getColumn(7);
+        ciudad.setPreferredWidth(100); 
+        
+}
+private void cargarAlojamientosTabla(){
+     try {  //preparo la consulta
+        String SQL = "SELECT * \n"
+                + "FROM alojamiento JOIN ciudad ON alojamiento.idCiudadDestino = ciudad.idCiudad\n"
+                + "WHERE alojamiento.estado=1";
+        PreparedStatement statement = con.prepareStatement(SQL);
+        //se ejecuta la consulta
+        ResultSet resultado = statement.executeQuery();
+        while (resultado.next()) {
+            //añado a la tabla los resultados de la consulta 
+            //si el estado es true cambiarlo a disponible:
+            if (resultado.getBoolean("estado") == true) {
+                modelo.addRow(new Object[]{resultado.getInt("idAlojamiento"), resultado.getDate("fechaIn"), resultado.getDate("fechaOn"),
+                    "Disponible", resultado.getString("tipo"), resultado.getString("servicio"), resultado.getInt("importeDiario"), resultado.getString("ciudad.nombre")});
+
+            } else {
+                //si el estado es false, cambiarlo a no disponible
+                modelo.addRow(new Object[]{resultado.getInt("idAlojamiento"), resultado.getDate("fechaIn"), resultado.getDate("fechaOn"),
+                    "No Disponible", resultado.getString("tipo"), resultado.getString("servicio"), resultado.getInt("importeDiario"), resultado.getString("ciudad.nombre")});
+            }
+        }
+    } catch (SQLException ex) {
+    }
+
+}
+
+private void updateAlojamiento(boolean estado){
+    // el boton guardar y borrar llaman a este metodo para modificar el alojamiento    
+                
+        String sql = "UPDATE alojamiento SET fechaIn = ?, fechaOn = ?,estado = ?,tipo = ?, servicio = ?, importeDiario= ?"
+                + ",idCiudadDestino = ? WHERE idAlojamiento = ?";
+       
+        try ( PreparedStatement statement = con.prepareStatement(sql)) {
+         
+          // preparo la sentencia tomando los valores ingresados por el usuario  
+          //convierto el String del textfield que tiene una fecha a un Date
+        Date fechain= new SimpleDateFormat("yyyy-MM-dd").parse(jTFechaIngreso.getText());  
+        Date fechasa = new SimpleDateFormat("yyyy-MM-dd").parse(jTFechaEgreso.getText());  
+        java.sql.Date sqlfecha1 = new java.sql.Date(fechain.getTime());
+        java.sql.Date sqlfecha2 = new java.sql.Date(fechasa.getTime());
+        statement.setDate(1, sqlfecha1);
+        statement.setDate(2, sqlfecha2);
+        statement.setBoolean(3,estado);
+        statement.setString(4,jTTipo.getText());
+        statement.setString(5,jTServicios.getText());
+        //convierto el string del jtextfield en int
+        statement.setInt(6,Integer.parseInt(jTImporte.getText()));
+        //el objeto selecciona en el jcombobox  lo casteo a la clase ciudad.
+        Ciudad city = (Ciudad) jCBCiudades.getSelectedItem();
+        statement.setInt(7,city.getIdCiudad());                
+        statement.setInt(8,Integer.parseInt(jTIDbuscar.getText()));
+        //se manda el insert a la base de datos   
+            statement.executeUpdate();
+            JOptionPane.showMessageDialog(rootPane, "Se guardo la modificacion en la base de datos");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException ex) {  
+         Logger.getLogger(GestionAlojamiento.class.getName()).log(Level.SEVERE, null, ex);
+     }  
+    
+}
+private void limpiarTabla(){
+    //llamo a este metodo cada vez que quiero limpiar la tabla.
+     int filas = modelo.getRowCount() - 1;
+        for (;filas >= 0; filas--) {
+            modelo.removeRow(modelo.getRowCount() - 1);
+        }
+
 }
 
 
 }
+
+

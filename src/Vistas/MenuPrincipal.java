@@ -5,6 +5,11 @@
  */
 package Vistas;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 public class MenuPrincipal extends javax.swing.JFrame {
  
@@ -162,13 +167,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jMGestionAlojamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMGestionAlojamientoActionPerformed
         // TODO add your handling code here:
-        jDesktopPane1.removeAll();
+       try{jDesktopPane1.removeAll();
         jDesktopPane1.repaint();
         GestionAlojamiento GA = new GestionAlojamiento();
         GA.setVisible(true);  
         jDesktopPane1.add(GA);
         jDesktopPane1.moveToFront(GA);
-        
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "error al cargar interfaz");
+        }
     }//GEN-LAST:event_jMGestionAlojamientoActionPerformed
 
     private void jGestionCiudadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGestionCiudadesActionPerformed

@@ -10,6 +10,7 @@ public class Alojamiento {
     private LocalDate fechaIn;
     private LocalDate fechaOn;
     private boolean estado;
+    private String tipo;
     private String servicio;
     private double importeDiario;
     private Ciudad ciudadDestino;
@@ -17,20 +18,30 @@ public class Alojamiento {
     public Alojamiento() {
     }
 
-    public Alojamiento(int idAlojamiento, LocalDate fechaIn, LocalDate fechaOn, boolean estado, String servicio, double importeDiario, Ciudad ciudadDestino) {
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Alojamiento(int idAlojamiento, LocalDate fechaIn, LocalDate fechaOn, boolean estado,String tipo, String servicio, double importeDiario, Ciudad ciudadDestino) {
         this.idAlojamiento = idAlojamiento;
         this.fechaIn = fechaIn;
         this.fechaOn = fechaOn;
         this.estado = estado;
+        this.tipo = tipo;
         this.servicio = servicio;
         this.importeDiario = importeDiario;
         this.ciudadDestino = ciudadDestino;
     }
 
-    public Alojamiento(LocalDate fechaIn, LocalDate fechaOn, boolean estado, String servicio, double importeDiario, Ciudad ciudadDestino) {
+    public Alojamiento(LocalDate fechaIn, LocalDate fechaOn, boolean estado,String tipo, String servicio, double importeDiario, Ciudad ciudadDestino) {
         this.fechaIn = fechaIn;
         this.fechaOn = fechaOn;
         this.estado = estado;
+        this.tipo = tipo;
         this.servicio = servicio;
         this.importeDiario = importeDiario;
         this.ciudadDestino = ciudadDestino;
@@ -97,6 +108,7 @@ public class Alojamiento {
         return "Alojamiento{" + "idAlojamiento=" + idAlojamiento + ", fechaIn=" + fechaIn + ", fechaOn=" + fechaOn + ", estado=" + estado + ", servicio=" + servicio + ", importeDiario=" + importeDiario + ", ciudadDestino=" + ciudadDestino + '}';
     }
     
-    
+               
+       
     
 }
