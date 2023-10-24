@@ -1,0 +1,32 @@
+EXCEPCIONES:
+    antes del try catch, inicializar:
+    PreparedStatement statement = null;
+    ResultSet resultado = null;
+
+    ejemplo de catch:
+     } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "Error al mandar la consulta a la base de datos "+e);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un valor valido "+e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "a ocurrido un error "+e);
+       
+    
+     Luego del try catch, en finally:
+    //luego del try catch, cierro el resulset y el statement
+      finally {
+        if (resultado != null) {
+            try {
+                resultado.close();
+            } catch (SQLException ex) {
+               JOptionPane.showMessageDialog(rootPane, "error al cerrar el resulset "+ex);
+            }
+        }
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException ex) {
+                 JOptionPane.showMessageDialog(rootPane, "error al cerrar el statement "+ex);
+            }
+        }
+    }  
