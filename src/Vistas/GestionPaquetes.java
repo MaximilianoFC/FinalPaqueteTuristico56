@@ -97,16 +97,17 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         jRBActivo = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
 
+        setMaximumSize(new java.awt.Dimension(1000, 1000));
         setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         jPanel1.setBackground(new java.awt.Color(189, 238, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1000, 1000));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo Pequeño.jpg"))); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(250, 250));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 28)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Gestion Paquetes");
 
         jSalir.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
@@ -142,18 +143,18 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Origen");
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Destino");
 
+        jCBCiudadOrigen.setBackground(new java.awt.Color(255, 255, 255));
         jCBCiudadOrigen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBCiudadOrigenActionPerformed(evt);
             }
         });
 
+        jCBCiudadDestino.setBackground(new java.awt.Color(255, 255, 255));
         jCBCiudadDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBCiudadDestinoActionPerformed(evt);
@@ -161,9 +162,9 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         });
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Alojamiento");
 
+        jTAlojamiento.setBackground(new java.awt.Color(255, 255, 255));
         jTAlojamiento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -182,9 +183,9 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTAlojamiento);
 
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Temporada");
 
+        jRBAlta.setBackground(new java.awt.Color(255, 255, 255));
         jRBAlta.setText("Alta");
         jRBAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,15 +193,17 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             }
         });
 
+        jRBMedia.setBackground(new java.awt.Color(255, 255, 255));
         jRBMedia.setText("Media");
 
+        jRBBaja.setBackground(new java.awt.Color(255, 255, 255));
         jRBBaja.setText("Baja");
         jRBBaja.setToolTipText("");
 
-        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Precio por cantidad de dias");
 
         jTFPrecioCantidadDias.setEditable(false);
+        jTFPrecioCantidadDias.setBackground(new java.awt.Color(255, 255, 255));
         jTFPrecioCantidadDias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTFPrecioCantidadDiasActionPerformed(evt);
@@ -208,8 +211,9 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         });
 
         jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("Pasaje");
+
+        jCBPasaje.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -226,15 +230,12 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             .addGap(0, 8, Short.MAX_VALUE)
         );
 
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Precio total por persona");
 
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("¿Desea saber el precio para mas de una persona?");
 
         jTFPrecioPorPersona.setEditable(false);
 
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Ingrese cantidad de personas");
 
         jBMultiplicarPorPersona.setBackground(new java.awt.Color(255, 255, 255));
@@ -247,7 +248,6 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
 
         jTFPrecioPorXPersonas.setEditable(false);
 
-        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Precio total con incremento de temporada");
 
         jTFPrecioConIncremento.setEditable(false);
@@ -311,7 +311,7 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
                                 .addComponent(jBMultiplicarPorPersona)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTFPrecioPorXPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jBPrecioConIncremento)
@@ -352,7 +352,6 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Buscar paquete");
 
         jBBuscar.setBackground(new java.awt.Color(255, 255, 255));
@@ -363,11 +362,12 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             }
         });
 
+        jRBInactivo.setBackground(new java.awt.Color(255, 255, 255));
         jRBInactivo.setText("Inactivo");
 
+        jRBActivo.setBackground(new java.awt.Color(255, 255, 255));
         jRBActivo.setText("Activo");
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Estado");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -441,7 +441,7 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(12, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -465,7 +465,7 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
                         .addComponent(jLabel11)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 34, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -485,37 +485,30 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
                             .addComponent(jCBPasaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jRBActivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTFIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBBuscar)
-                            .addComponent(jBReactivar)
-                            .addComponent(jBBorrar)
-                            .addComponent(jBGuardar)
-                            .addComponent(jLabel6))
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRBActivo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                        .addComponent(jRBInactivo)
-                        .addContainerGap())))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTFIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBBuscar)
+                    .addComponent(jBReactivar)
+                    .addComponent(jBBorrar)
+                    .addComponent(jBGuardar)
+                    .addComponent(jLabel6)
+                    .addComponent(jRBInactivo))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 986, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 990, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 971, Short.MAX_VALUE)
         );
 
         pack();

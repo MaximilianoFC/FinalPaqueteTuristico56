@@ -88,9 +88,12 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         jCalendar = new com.toedter.calendar.JCalendar();
 
+        setMaximumSize(new java.awt.Dimension(1000, 1000));
         setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         jPanel1.setBackground(new java.awt.Color(189, 238, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1000, 1000));
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Logo Pequeño.jpg"))); // NOI18N
@@ -281,15 +284,13 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
                 .addComponent(jSalir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(180, 180, 180)
-                .addComponent(jLabel1)
-                .addGap(3, 3, 3))
+                .addGap(491, 491, 491))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel9)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 922, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel6)
@@ -298,50 +299,45 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3))
                             .addGap(37, 37, 37)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jCBCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jTServicios, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jTIDbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jBBuscar))
-                                        .addComponent(jTTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLBusquedaAyuda))))
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(jTIDbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(jBBuscar))
+                                                .addComponent(jTTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLBusquedaAyuda)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel1))))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel8)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(175, 175, 175)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(175, 175, 175)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                    .addComponent(jTFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(jBfechaEgreso))
-                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                    .addComponent(jTFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(jBFechaIngreso))))
+                                            .addComponent(jTFechaEgreso, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jBfechaEgreso))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel10)
-                                            .addGap(111, 111, 111)
-                                            .addComponent(jREstado)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(jTFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jBFechaIngreso))))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel7)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(432, 432, 432)
-                                    .addComponent(jLAyuda)
-                                    .addGap(63, 63, 63))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(97, 97, 97))))
+                                    .addComponent(jLabel10)
+                                    .addGap(111, 111, 111)
+                                    .addComponent(jREstado))
+                                .addComponent(jLabel7))
+                            .addGap(100, 100, 100)
+                            .addComponent(jCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLAyuda))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel12)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -366,7 +362,7 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
                         .addComponent(jBGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBBorrar)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,19 +391,13 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jTImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jCBCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLAyuda)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jCBCiudades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(jBFechaIngreso)
@@ -420,8 +410,10 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jREstado)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)))
+                            .addComponent(jLabel10)))
+                    .addComponent(jCalendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLAyuda))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(jTFPrecioMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -431,95 +423,260 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
                     .addComponent(jLabel13)
                     .addComponent(jTCiudadBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBFiltrarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBBorrar)
                     .addComponent(jBGuardar)
                     .addComponent(jBNuevo)
                     .addComponent(jBLimpíar))
-                .addContainerGap())
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 971, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTCiudadBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCiudadBuscarMouseClicked
+        // clic en jtextfieldCiudadBuscar
+        jTCiudadBuscar.setText("");
+    }//GEN-LAST:event_jTCiudadBuscarMouseClicked
+
+    private void jLBusquedaAyudaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLBusquedaAyudaMouseEntered
+        // se coloca el mouse sobre el icono ?
+        jLBusquedaAyuda.setToolTipText("Ingrese un ID para buscar y modificar la base de datos, no influye a la hora de insertar un Alojamiento");
+    }//GEN-LAST:event_jLBusquedaAyudaMouseEntered
+
+    private void jBFiltrarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFiltrarTablaActionPerformed
+        // filtra la tabla por precio minimo, precio maximo o ambos
+        //Se incluye en el filtro el estado activo e inactivo.
+        //4 OPCIONES
+        //si coloca un minimo pero no un maximo CONSULTA POR MINIMO.
+        // puede consultarse por la ciudad o no.
+        //si coloca un maximo (sin o con minimo)se CONSULTA BETWENN .
+        //*si coloca un minimo y maximo tambien es un betwenn.
+        //puede consultarse por la ciudad o no.
+        ResultSet resultado = null;
+        PreparedStatement statement = null;
+        //la consulta resultado se hara solo una vez, de entre las dos opciones. MIN y BEETWEEN.
+
+        try {
+            if (jTFPrecioMaximo.getText().equals("")) {
+                //Si no se aclaro precio maximo, es infinito.
+                //se hace una consulta solo con el precio minimo.
+
+                if (jTCiudadBuscar.getText().isEmpty()) {
+                    //Si no se escribio la ciudad en el campo de texto, la consulta se realiza sin ciudad.
+
+                    //CONSULTA PRECIO MIN.
+                    String SQLMIN = "SELECT * \n"
+                    + "FROM alojamiento JOIN ciudad ON alojamiento.idCiudadDestino = ciudad.idCiudad\n"
+                    + "WHERE alojamiento.importeDiario >= ? AND alojamiento.estado = ?";
+
+                    statement = con.prepareStatement(SQLMIN);
+                    //si no se indico precio minimo ni maximo, se establece el precio minimo en 0.
+                    if (jTFPrecioMinimo.getText().isEmpty()) {
+                        statement.setDouble(1, 0.0);
+                    } else {
+                        //si se indico el precio minimo, establezco el precio minimo de la consulta con el textfield.
+                        statement.setDouble(1, Double.parseDouble(jTFPrecioMinimo.getText()));
+                    }
+
+                    //establezco el estado activo/inactivo con el radiobuton.
+                    statement.setBoolean(2, jRFiltroEstado.isSelected());
+                    //se ejecuta la consulta
+                    resultado = statement.executeQuery();
+                } else {
+                    //Si se escribio la ciudad en el campo de texto, la consulta se realiza con ciudad.
+
+                    //CONSULTA PRECIO MIN Y CIUDAD DESTINO.
+                    String SQLMIN = "SELECT * \n"
+                    + "FROM alojamiento JOIN ciudad ON alojamiento.idCiudadDestino = ciudad.idCiudad\n"
+                    + "WHERE alojamiento.importeDiario >= ? AND alojamiento.estado = ? AND ciudad.nombre = ?";
+
+                    statement = con.prepareStatement(SQLMIN);
+                    //si no se indico precio minimo ni maximo, se establece el precio minimo en 0.
+                    if (jTFPrecioMinimo.getText().isEmpty()) {
+                        statement.setDouble(1, 0.0);
+                    } else {
+                        //si se indico el precio minimo, establezco el precio minimo de la consulta con el textfield.
+                        statement.setDouble(1, Double.parseDouble(jTFPrecioMinimo.getText()));
+                    }
+
+                    //establezco el estado activo/inactivo con el radiobuton.
+                    statement.setBoolean(2, jRFiltroEstado.isSelected());
+                    //establezco la ciudad con el textfield.
+                    statement.setString(3, jTCiudadBuscar.getText());
+                    //se ejecuta la consulta
+                    resultado = statement.executeQuery();
+                }
+            } else {
+                if (jTCiudadBuscar.getText().isEmpty()) { //Si se aclaro el precio maximo, se hace una consulta BEETWEN
+                    //si no se aclaro la ciudad se hace una consulta sin ciudad
+                    //CONSULTA BEETWEN
+                    String SQL = "SELECT * \n"
+                    + "FROM alojamiento JOIN ciudad ON alojamiento.idCiudadDestino = ciudad.idCiudad\n"
+                    + "WHERE alojamiento.importeDiario BETWEEN ? AND ? AND alojamiento.estado = ?";
+                    statement = con.prepareStatement(SQL);
+
+                    //establezco el statement con el precio minimo y Maximo:
+                    if (jTFPrecioMinimo.getText().equals("")) {
+                        //si no hay precio minimo, se establece en 0.
+                        statement.setDouble(1, 0.0);
+                    } else {
+                        //si hay precio minimo, se lo toma del textfield.
+                        statement.setDouble(1, Double.parseDouble(jTFPrecioMinimo.getText()));
+                    }
+                    //se establece el precio maximo.
+                    statement.setDouble(2, Double.parseDouble(jTFPrecioMaximo.getText()));
+                    //establezco el estado activo/inactivo con el radiobuton.
+                    statement.setBoolean(3, jRFiltroEstado.isSelected());
+                    //se ejecuta la consulta
+                    resultado = statement.executeQuery();
+
+                } else {
+                    //Si se aclaro el precio maximo, se hace una consulta BEETWEN
+                    //si se aclaro la ciudad se incluye la ciudad en la consulta
+                    //CONSULTA BEETWEN Y CIUDAD
+                    String SQL = "SELECT * \n"
+                    + "FROM alojamiento JOIN ciudad ON alojamiento.idCiudadDestino = ciudad.idCiudad\n"
+                    + "WHERE alojamiento.importeDiario BETWEEN ? AND ? AND alojamiento.estado = ? AND ciudad.nombre = ?";
+                    statement = con.prepareStatement(SQL);
+
+                    //establezco el statement con el precio minimo y Maximo:
+                    if (jTFPrecioMinimo.getText().equals("")) {
+                        //si no hay precio minimo, se establece en 0.
+                        statement.setDouble(1, 0.0);
+                    } else {
+                        //si hay precio minimo, se lo toma del textfield.
+                        statement.setDouble(1, Double.parseDouble(jTFPrecioMinimo.getText()));
+                    }
+                    //se establece el precio maximo.
+                    statement.setDouble(2, Double.parseDouble(jTFPrecioMaximo.getText()));
+                    //establezco el estado activo/inactivo con el radiobuton.
+                    statement.setBoolean(3, jRFiltroEstado.isSelected());
+                    //establezco la ciudad con el textfield.
+                    statement.setString(4, jTCiudadBuscar.getText());
+                    //se ejecuta la consulta
+                    resultado = statement.executeQuery();
+                }
+            }
+            //****La consulta ya se realizo****
+            //limpio la tabla:
+            limpiarTabla();
+            //añado a la tabla los resultados de la consulta
+            while (resultado.next()) {
+                //si el estado es true cambiarlo a disponible:
+                if (resultado.getBoolean("estado") == true) {
+                    modelo.addRow(new Object[]{resultado.getInt("idAlojamiento"), resultado.getDate("fechaIn"), resultado.getDate("fechaOn"),
+                        "Disponible", resultado.getString("tipo"), resultado.getString("servicio"), resultado.getInt("importeDiario"), resultado.getString("ciudad.nombre")});
+            } else {
+                //si el estado es false, cambiarlo a no disponible
+                modelo.addRow(new Object[]{resultado.getInt("idAlojamiento"), resultado.getDate("fechaIn"), resultado.getDate("fechaOn"),
+                    "No Disponible", resultado.getString("tipo"), resultado.getString("servicio"), resultado.getInt("importeDiario"), resultado.getString("ciudad.nombre")});
+        }
+        }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "Error al mandar la consulta a la base de datos " + e);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un valor minimo y/o maximo valido " + e);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "a ocurrido un error " + e);
+
+        } finally {
+            if (resultado != null) {
+                try {
+                    resultado.close();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "error al cerrar el resulset " + ex);
+                }
+            }
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "error al cerrar el statement " + ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_jBFiltrarTablaActionPerformed
+
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         //clic en el boton buscar, hace una consulta SQL en base al ID y llena los datos de la interfaz con la consulta
-        //para poder editarlos mas facil.  
-                 
-       PreparedStatement statement = null;
-       ResultSet resultado = null;
-       //se entra al try siempre y cuando el id no este vacio
-       if(jTIDbuscar.getText().isEmpty() == false)
-       {  
-        try {
-             int busq = Integer.parseInt(jTIDbuscar.getText());        
-        
-            String SQL = "SELECT* FROM alojamiento WHERE idAlojamiento = ?";
-             statement = con.prepareStatement(SQL);
-            statement.setInt(1, busq);
-            resultado = statement.executeQuery();
+        //para poder editarlos mas facil.
 
-            while (resultado.next()) {
-                //coloco los datos en los campos de texto
-                jTTipo.setText(resultado.getString("tipo"));
-                jTServicios.setText(resultado.getString("servicio"));
-                jTImporte.setText(Integer.toString(resultado.getInt("importeDiario")));
-                jTFechaIngreso.setText(resultado.getDate("fechaIn").toString());
-                jTFechaEgreso.setText(resultado.getDate("fechaOn").toString());
-                jREstado.setSelected(resultado.getBoolean("estado"));
-                int idciudad = resultado.getInt("idCiudadDestino");
+        PreparedStatement statement = null;
+        ResultSet resultado = null;
+        //se entra al try siempre y cuando el id no este vacio
+        if(jTIDbuscar.getText().isEmpty() == false)
+        {
+            try {
+                int busq = Integer.parseInt(jTIDbuscar.getText());
 
-                DefaultComboBoxModel<Ciudad> model = (DefaultComboBoxModel<Ciudad>) jCBCiudades.getModel();
-                //recorro el modelo del jcombobox, y itero sus elementos
-                for (int i = 0; i < model.getSize(); i++) {
-                    Ciudad item = model.getElementAt(i);
-                    //si el id que coloco en el textfield para buscar, concuerda con alguna de las
-                    //ciudades en el jcombobox, la coloco como seleccionada.
-                    if (item.getIdCiudad() == idciudad) {
-                        jCBCiudades.setSelectedItem(item);
+                String SQL = "SELECT* FROM alojamiento WHERE idAlojamiento = ?";
+                statement = con.prepareStatement(SQL);
+                statement.setInt(1, busq);
+                resultado = statement.executeQuery();
+
+                while (resultado.next()) {
+                    //coloco los datos en los campos de texto
+                    jTTipo.setText(resultado.getString("tipo"));
+                    jTServicios.setText(resultado.getString("servicio"));
+                    jTImporte.setText(Integer.toString(resultado.getInt("importeDiario")));
+                    jTFechaIngreso.setText(resultado.getDate("fechaIn").toString());
+                    jTFechaEgreso.setText(resultado.getDate("fechaOn").toString());
+                    jREstado.setSelected(resultado.getBoolean("estado"));
+                    int idciudad = resultado.getInt("idCiudadDestino");
+
+                    DefaultComboBoxModel<Ciudad> model = (DefaultComboBoxModel<Ciudad>) jCBCiudades.getModel();
+                    //recorro el modelo del jcombobox, y itero sus elementos
+                    for (int i = 0; i < model.getSize(); i++) {
+                        Ciudad item = model.getElementAt(i);
+                        //si el id que coloco en el textfield para buscar, concuerda con alguna de las
+                        //ciudades en el jcombobox, la coloco como seleccionada.
+                        if (item.getIdCiudad() == idciudad) {
+                            jCBCiudades.setSelectedItem(item);
+                        }
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(rootPane, "Error al realizar la consulta a la base de datos "+e);
+            }catch(NumberFormatException e)
+            {
+                JOptionPane.showMessageDialog(rootPane, "Ingrese un numero entero valido en el campo ID "+e);
+            }//luego del try catch, cierro el resulset y el statement
+            finally {
+                if (resultado != null) {
+                    try {
+                        resultado.close();
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(rootPane, "error al cerrar el resulset "+ex);
+                    }
+                }
+                if (statement != null) {
+                    try {
+                        statement.close();
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(rootPane, "error al cerrar el statement "+ex);
                     }
                 }
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, "Error al realizar la consulta a la base de datos "+e);
-        }catch(NumberFormatException e)
-        {
-            JOptionPane.showMessageDialog(rootPane, "Ingrese un numero entero valido en el campo ID "+e);
-        }//luego del try catch, cierro el resulset y el statement
-        finally {
-        if (resultado != null) {
-            try {
-                resultado.close();
-            } catch (SQLException ex) {
-               JOptionPane.showMessageDialog(rootPane, "error al cerrar el resulset "+ex);
-            }
+
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un numero entero valido en el campo ID");
         }
-        if (statement != null) {
-            try {
-                statement.close();
-            } catch (SQLException ex) {
-                 JOptionPane.showMessageDialog(rootPane, "error al cerrar el statement "+ex);
-            }
-        }
-    }  
-        
-    }else{
-         JOptionPane.showMessageDialog(rootPane, "Ingrese un numero entero valido en el campo ID");       
-       }     
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jLAyudaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLAyudaMouseEntered
@@ -588,170 +745,6 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
         getDesktopPane().add(MS);
         MS.setVisible(true);
     }//GEN-LAST:event_jSalirMouseClicked
-
-    private void jBFiltrarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFiltrarTablaActionPerformed
-        // filtra la tabla por precio minimo, precio maximo o ambos
-        //Se incluye en el filtro el estado activo e inactivo.
-        //4 OPCIONES
-        //si coloca un minimo pero no un maximo CONSULTA POR MINIMO.
-          // puede consultarse por la ciudad o no.
-        //si coloca un maximo (sin o con minimo)se CONSULTA BETWENN .
-            //*si coloca un minimo y maximo tambien es un betwenn.
-            //puede consultarse por la ciudad o no.
-         ResultSet resultado = null;
-        PreparedStatement statement = null;
-        //la consulta resultado se hara solo una vez, de entre las dos opciones. MIN y BEETWEEN.
-
-        try {
-            if (jTFPrecioMaximo.getText().equals("")) {
-                //Si no se aclaro precio maximo, es infinito.
-                //se hace una consulta solo con el precio minimo. 
-
-                if (jTCiudadBuscar.getText().isEmpty()) {
-                    //Si no se escribio la ciudad en el campo de texto, la consulta se realiza sin ciudad.
-
-                    //CONSULTA PRECIO MIN.   
-                    String SQLMIN = "SELECT * \n"
-                            + "FROM alojamiento JOIN ciudad ON alojamiento.idCiudadDestino = ciudad.idCiudad\n"
-                            + "WHERE alojamiento.importeDiario >= ? AND alojamiento.estado = ?";
-
-                    statement = con.prepareStatement(SQLMIN);
-                    //si no se indico precio minimo ni maximo, se establece el precio minimo en 0.
-                    if (jTFPrecioMinimo.getText().isEmpty()) {
-                        statement.setDouble(1, 0.0);
-                    } else {
-                        //si se indico el precio minimo, establezco el precio minimo de la consulta con el textfield.
-                        statement.setDouble(1, Double.parseDouble(jTFPrecioMinimo.getText()));
-                    }
-
-                    //establezco el estado activo/inactivo con el radiobuton.
-                    statement.setBoolean(2, jRFiltroEstado.isSelected());
-                    //se ejecuta la consulta
-                    resultado = statement.executeQuery();
-                } else {
-                    //Si se escribio la ciudad en el campo de texto, la consulta se realiza con ciudad.
-
-                    //CONSULTA PRECIO MIN Y CIUDAD DESTINO.   
-                    String SQLMIN = "SELECT * \n"
-                            + "FROM alojamiento JOIN ciudad ON alojamiento.idCiudadDestino = ciudad.idCiudad\n"
-                            + "WHERE alojamiento.importeDiario >= ? AND alojamiento.estado = ? AND ciudad.nombre = ?";
-
-                    statement = con.prepareStatement(SQLMIN);
-                    //si no se indico precio minimo ni maximo, se establece el precio minimo en 0.
-                    if (jTFPrecioMinimo.getText().isEmpty()) {
-                        statement.setDouble(1, 0.0);
-                    } else {
-                        //si se indico el precio minimo, establezco el precio minimo de la consulta con el textfield.
-                        statement.setDouble(1, Double.parseDouble(jTFPrecioMinimo.getText()));
-                    }
-
-                    //establezco el estado activo/inactivo con el radiobuton.
-                    statement.setBoolean(2, jRFiltroEstado.isSelected());
-                    //establezco la ciudad con el textfield.
-                    statement.setString(3, jTCiudadBuscar.getText());
-                    //se ejecuta la consulta
-                    resultado = statement.executeQuery();
-                }
-            } else {
-                if (jTCiudadBuscar.getText().isEmpty()) { //Si se aclaro el precio maximo, se hace una consulta BEETWEN
-                    //si no se aclaro la ciudad se hace una consulta sin ciudad    
-                    //CONSULTA BEETWEN
-                    String SQL = "SELECT * \n"
-                            + "FROM alojamiento JOIN ciudad ON alojamiento.idCiudadDestino = ciudad.idCiudad\n"
-                            + "WHERE alojamiento.importeDiario BETWEEN ? AND ? AND alojamiento.estado = ?";
-                    statement = con.prepareStatement(SQL);
-
-                    //establezco el statement con el precio minimo y Maximo:
-                    if (jTFPrecioMinimo.getText().equals("")) {
-                        //si no hay precio minimo, se establece en 0.
-                        statement.setDouble(1, 0.0);
-                    } else {
-                        //si hay precio minimo, se lo toma del textfield.
-                        statement.setDouble(1, Double.parseDouble(jTFPrecioMinimo.getText()));
-                    }
-                    //se establece el precio maximo.
-                    statement.setDouble(2, Double.parseDouble(jTFPrecioMaximo.getText()));
-                    //establezco el estado activo/inactivo con el radiobuton.
-                    statement.setBoolean(3, jRFiltroEstado.isSelected());
-                    //se ejecuta la consulta
-                    resultado = statement.executeQuery();
-
-                } else {
-                    //Si se aclaro el precio maximo, se hace una consulta BEETWEN
-                    //si se aclaro la ciudad se incluye la ciudad en la consulta  
-                    //CONSULTA BEETWEN Y CIUDAD
-                    String SQL = "SELECT * \n"
-                            + "FROM alojamiento JOIN ciudad ON alojamiento.idCiudadDestino = ciudad.idCiudad\n"
-                            + "WHERE alojamiento.importeDiario BETWEEN ? AND ? AND alojamiento.estado = ? AND ciudad.nombre = ?";
-                    statement = con.prepareStatement(SQL);
-
-                    //establezco el statement con el precio minimo y Maximo:
-                    if (jTFPrecioMinimo.getText().equals("")) {
-                        //si no hay precio minimo, se establece en 0.
-                        statement.setDouble(1, 0.0);
-                    } else {
-                        //si hay precio minimo, se lo toma del textfield.
-                        statement.setDouble(1, Double.parseDouble(jTFPrecioMinimo.getText()));
-                    }
-                    //se establece el precio maximo.
-                    statement.setDouble(2, Double.parseDouble(jTFPrecioMaximo.getText()));
-                    //establezco el estado activo/inactivo con el radiobuton.
-                    statement.setBoolean(3, jRFiltroEstado.isSelected());
-                    //establezco la ciudad con el textfield.
-                    statement.setString(4, jTCiudadBuscar.getText());
-                    //se ejecuta la consulta
-                    resultado = statement.executeQuery();
-                }
-            }
-            //****La consulta ya se realizo****
-            //limpio la tabla:
-            limpiarTabla();
-            //añado a la tabla los resultados de la consulta 
-            while (resultado.next()) {
-                //si el estado es true cambiarlo a disponible:
-                if (resultado.getBoolean("estado") == true) {
-                    modelo.addRow(new Object[]{resultado.getInt("idAlojamiento"), resultado.getDate("fechaIn"), resultado.getDate("fechaOn"),
-                        "Disponible", resultado.getString("tipo"), resultado.getString("servicio"), resultado.getInt("importeDiario"), resultado.getString("ciudad.nombre")});
-                } else {
-                    //si el estado es false, cambiarlo a no disponible
-                    modelo.addRow(new Object[]{resultado.getInt("idAlojamiento"), resultado.getDate("fechaIn"), resultado.getDate("fechaOn"),
-                        "No Disponible", resultado.getString("tipo"), resultado.getString("servicio"), resultado.getInt("importeDiario"), resultado.getString("ciudad.nombre")});
-                }
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, "Error al mandar la consulta a la base de datos " + e);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(rootPane, "Ingrese un valor minimo y/o maximo valido " + e);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "a ocurrido un error " + e);
-
-        } finally {
-            if (resultado != null) {
-                try {
-                    resultado.close();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(rootPane, "error al cerrar el resulset " + ex);
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(rootPane, "error al cerrar el statement " + ex);
-                }
-            }
-        }
-    }//GEN-LAST:event_jBFiltrarTablaActionPerformed
-
-    private void jLBusquedaAyudaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLBusquedaAyudaMouseEntered
-        // se coloca el mouse sobre el icono ?
-        jLBusquedaAyuda.setToolTipText("Ingrese un ID para buscar y modificar la base de datos, no influye a la hora de insertar un Alojamiento");
-    }//GEN-LAST:event_jLBusquedaAyudaMouseEntered
-
-    private void jTCiudadBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTCiudadBuscarMouseClicked
-        // clic en jtextfieldCiudadBuscar
-        jTCiudadBuscar.setText("");        
-    }//GEN-LAST:event_jTCiudadBuscarMouseClicked
 
 
           
