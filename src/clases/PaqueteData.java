@@ -5,6 +5,7 @@
  */
 package clases;
 
+import Entidades.Ciudad;
 import Entidades.Paquete;
 import finalpaqueteturistico56.Conexion;
 import java.sql.Connection;
@@ -12,6 +13,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,10 +30,8 @@ public class PaqueteData {
          this.con=Conexion.getConexion();
      }
     
-    public void agregarPaquete(Paquete paquete) {
-        /*recibe un paquete compuesto por dos ciudades, un alojamiento, 
-        un pasaje y un estado*/
-                
+    public void agregarPaquete(int idCiudadOrigen, int idCiudadDestino, int idAlojamiento, int idPasaje, boolean estado) {
+       
         String sql= "INSERT INTO paquete (idCiudadOrigen, idCiudadDestino, idAlojamiento, idPasaje, estado) VALUES (?, ?, ?, ?, ?)";
         
          try {
@@ -36,16 +39,15 @@ public class PaqueteData {
              
              /*extraemos los datos que necesitamos de los objetos que componen 
             el paquete y reemplazamos las variables dinamicas con estos datos*/
-            ps.setInt(1,2); 
-             ps.setInt(2,3);
-             ps.setInt(3,1);
-             ps.setInt(4,1);
-             ps.setBoolean(5,true);
+            ps.setInt(1,idCiudadOrigen); 
+             ps.setInt(2,idCiudadDestino);
+             ps.setInt(3,idAlojamiento);
+             ps.setInt(4,idPasaje);
+             ps.setBoolean(5,estado);
              
              ps.executeUpdate();
              ResultSet rs=ps.getGeneratedKeys();
              if (rs.next()) {
-                 paquete.setIdPaquete(rs.getInt(1));
                  JOptionPane.showMessageDialog(null, "Paquete cargado correctamente");
              }
              
@@ -57,18 +59,18 @@ public class PaqueteData {
         
     }
     
-    public void modificarPaquete (Paquete paquete){
+    public void modificarPaquete (int idPaquete, int idCiudadOrigen, int idCiudadDestino, int idAlojamiento, int idPasaje){
         /*recibe un paquete y le cambia los id de sus componentes*/
         String sql= "UPDATE paquete set idCiudadOrigen=?, idCiudadDestino=?, idAlojamiento=?, idPasaje=? WHERE idPaquete=?";
         
          try {
              PreparedStatement ps=con.prepareStatement(sql);
              
-             ps.setInt(1, paquete.getOrigen().getIdCiudad());
-             ps.setInt(2, paquete.getDestino().getIdCiudad());
-             ps.setInt(3, paquete.getAlojamiento().getIdAlojamiento());
-             ps.setInt(4, paquete.getPasaje().getIdPasaje());
-             ps.setInt(5, paquete.getIdPaquete());
+             ps.setInt(1, idCiudadOrigen);
+             ps.setInt(2, idCiudadDestino);
+             ps.setInt(3, idAlojamiento);
+             ps.setInt(4, idPasaje);
+             ps.setInt(5, idPaquete);
              
              int exito=ps.executeUpdate();
              
@@ -115,4 +117,37 @@ public class PaqueteData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla paquete"+ex.getMessage());
         }
     }
+    
+    
+    
+//    public List<Paquete> obtenerPaquetes(){
+//        
+//        ArrayList<Paquete> listaDePaquetes=new ArrayList<>();
+//        
+//        String sql="SELECT * FROM paquete";
+//        
+//             try {
+//                 PreparedStatement ps=con.prepareStatement(sql);
+//                 ResultSet rs=ps.executeQuery();
+//                 while (rs.next()){
+//                     Paquete paquete=new Paquete();
+//                     paquete.setIdPaquete(rs.getInt("idPaquete"));
+//                     Ciudad ciudadOrigen=ciudadData.buscarCiudad(rs.getInt(idCiudadOrigen));
+//                     Ciudad ciudadDestino=ciudadData.buscarCiudad(rs.getInt(idCiudadDestino));
+//                     Alojamiento aloj=alojamientoData.buscarAlojamiento(rs.getInt(idAlojamiento));
+//                     Pasaje pasaje=pasajeData.buscarPasaje(rs.getInt(idPasaje));
+//                     paquete.setEstado(rs.getBoolean("estado"));
+//                     paquete.setOrigen(ciudadOrigen);
+//                     paquete.setDestino(ciudadDestino);
+//                     paquete.setAlojamiento(aloj);
+//                     paquete.setPasaje(pasaje);
+//                     listaDePaquetes.add(paquete);
+//                 }
+//                 ps.close();  
+//             } catch (SQLException ex) {
+//                 JOptionPane.showMessageDialog(null, "Error al acceder a la tabla paquete"+ex.getMessage());
+//             }
+//             return listaDePaquetes;
+//    }
+//    
 }

@@ -64,7 +64,7 @@ public class Pasaje {
 
     @Override
     public String toString() {
-        return "Pasaje{" + "idPasaje=" + idPasaje + ", tipoTransporte=" + tipoTransporte + ", importe=" + importe + ", nombre=" + nombre + ", estado=" + estado + '}';
+        return "" + idPasaje + " - " + tipoTransporte + ", $" + importe + "";
     }
     
 }
