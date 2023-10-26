@@ -18,16 +18,39 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
+
 public class GestionPasaje extends javax.swing.JInternalFrame {
     private int working = 0;
     private int working2 = 0;
-    private int city = 0;
     Connection con = Conexion.getConexion();
     
     public GestionPasaje() {
         initComponents();
         cargarDatosEnComboBox();
         QuitarLaBarraTitulo();
+        
+                 // Consulta para obtener los tipos de transporte según el estado
+        String sql3 = "SELECT tipoTransporte FROM pasaje WHERE estado = ?";
+        boolean estado2 = false;
+        try (PreparedStatement statement = con.prepareStatement(sql3)) {
+            // Establecer el estado en la consulta
+            statement.setBoolean(1, estado2);
+            
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet resultSet = statement.executeQuery()) {
+                // Limpiar la JComboBox antes de añadir nuevos elementos
+                jComboBoxTD.removeAllItems();
+                
+                // Añadir tipos de transporte a la JComboBox
+                while (resultSet.next()) {
+                    String tipoTransporte = resultSet.getString("tipoTransporte");
+                    jComboBoxTD.addItem(tipoTransporte);
+                }
+            }
+        } catch (SQLException e) {
+            // Manejar las excepciones (por ejemplo, imprimir errores o lanzar una excepción personalizada)
+            e.printStackTrace();
+        }
         
      try {
         String sql = "SELECT p.tipoTransporte,p.estado, c.nombre FROM pasaje p JOIN ciudad c ON p.idCiudad = c.idCiudad";
@@ -64,6 +87,7 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
             // Manejar excepciones SQL, por ejemplo, mostrando un mensaje de error
             ex.printStackTrace();
         }
+    
     }
 
     @SuppressWarnings("unchecked")
@@ -83,10 +107,10 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
         jCTipoTransporte = new javax.swing.JComboBox<>();
         jTextTotal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextTipoTransporte = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        jTextPrecio = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -94,7 +118,7 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxTD = new javax.swing.JComboBox<>();
         jButton4 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(189, 238, 255));
@@ -116,7 +140,7 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
         jLabel3.setText("Gestion Pasaje");
 
         jBGuardar.setBackground(new java.awt.Color(255, 255, 255));
-        jBGuardar.setText("Guardar");
+        jBGuardar.setText("Cambiar");
         jBGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBGuardarActionPerformed(evt);
@@ -155,22 +179,39 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel6.setText("Añadir transporte");
+        jLabel6.setText("Añadir/Editar transporte");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jTextTipoTransporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextTipoTransporteActionPerformed(evt);
             }
         });
 
         jButton1.setText("Nuevo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Limpiar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jTextPrecio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextPrecioActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Tipo de transporte");
 
         jLabel7.setText("Precio");
 
+        jLabel8.setForeground(new java.awt.Color(255, 51, 51));
         jLabel8.setText("Ciudad");
 
         jComboCiudad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -193,9 +234,19 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
 
         jLabel10.setText("Transportes desactivados");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTDActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Reactivar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -206,7 +257,7 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addGap(66, 66, 66)
                 .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(731, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,24 +286,24 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
                                 .addGap(80, 80, 80)
                                 .addComponent(jLabel8))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextTipoTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addComponent(jButton1)
-                                .addGap(37, 37, 37)
-                                .addComponent(jBGuardar)
-                                .addGap(37, 37, 37)
+                                .addGap(28, 28, 28)
+                                .addComponent(jBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
                                 .addComponent(jButton2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(jButton4)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxTD, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(230, 230, 230))))
         );
@@ -290,17 +341,17 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
                     .addComponent(jLabel10))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextTipoTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxTD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jBGuardar)
                     .addComponent(jButton4))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -311,7 +362,9 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE))
         );
 
         pack();
@@ -327,7 +380,7 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
         repaint();
     }
     private void cargarDatosEnComboBox() {
-        jCTipoTransporte.addItem("Unviewed (ID: -1)");
+        jCTipoTransporte.addItem("Dont Touch <3. (ID: -1)");
     }
 
     private void jSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSalirMouseClicked
@@ -339,35 +392,56 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jSalirMouseClicked
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-   
+        String nombreCiudad = jComboCiudad.getSelectedItem().toString();
+        String tipoTransporte = jCTipoTransporte.getSelectedItem().toString();
+        int indiceParentesis = tipoTransporte.indexOf("(");
+
+        if (indiceParentesis != -1) {
+            tipoTransporte = tipoTransporte.substring(0, indiceParentesis).trim();
+            System.out.println(tipoTransporte);
+        }
+        double precio = Double.parseDouble(jTextPrecio.getText());
+        int idCiudad = -1; 
         int pasajeID = obtenerPasajeIDPorTipoTransporte();
         if (pasajeID != -1) {
-            try {
-                int importe = Integer.parseInt(jTextTotal.getText()); // Obtener el importe del JTextField
-
-                String sql = "UPDATE pasaje SET importe = ? WHERE idPasaje = ?";
-                PreparedStatement preparedStatement = con.prepareStatement(sql);
-                preparedStatement.setInt(1, importe);
-                preparedStatement.setInt(2, pasajeID);
-
-                int filasAfectadas = preparedStatement.executeUpdate();
-
-                if (filasAfectadas > 0) {
-                    JFrame parent = new JFrame();
-                    JOptionPane.showMessageDialog(parent, "Importe actualizado correctamente en la base de datos.");
-                } else {
-                    JFrame parent = new JFrame();
-                    JOptionPane.showMessageDialog(parent, "No se pudo actualizar el importe en la base de datos.");
+                String consultaCiudad = "SELECT idCiudad FROM ciudad WHERE nombre = ?";
+                try (PreparedStatement statementCiudad = con.prepareStatement(consultaCiudad)) {
+                    statementCiudad.setString(1, nombreCiudad);
+                    try (ResultSet resultSet = statementCiudad.executeQuery()) {
+                        if (resultSet.next()) {
+                            idCiudad = resultSet.getInt("idCiudad");
+                        } else {
+                            JFrame parent = new JFrame();
+                            JOptionPane.showMessageDialog(parent, "La ciudad seleccionada no se encuentra en la base de datos.");
+                            return;
+                        }
+                    }
+                }  catch (SQLException ex) {
+                    Logger.getLogger(GestionPasaje.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (NumberFormatException | SQLException ex) {
+
+        String sql = "UPDATE pasaje SET importe = ? WHERE tipoTransporte = ? AND idCiudad = ?";
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setDouble(1, precio);
+            statement.setString(2, tipoTransporte);
+            statement.setInt(3, idCiudad);
+            statement.setString(4, tipoTransporte);
+            statement.setInt(5, idCiudad);
+            int filasActualizadas = statement.executeUpdate();
+
+            if (filasActualizadas > 0) {
                 JFrame parent = new JFrame();
-                String error = ex.getMessage();
-                JOptionPane.showMessageDialog(parent, "Error SQL : \n"+error);
-            }
+                JOptionPane.showMessageDialog(parent, "Datos actualizados correctamente.");
+                
             } else {
                 JFrame parent = new JFrame();
-                JOptionPane.showMessageDialog(parent, "Como llegamos aca? Pasaje no encontrado");
+                JOptionPane.showMessageDialog(parent, "No se encontraron registros para actualizar.");
             }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        }
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private int obtenerPasajeIDPorTipoTransporte() {
@@ -403,7 +477,6 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextTotalActionPerformed
 
     private void jCTipoTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCTipoTransporteActionPerformed
-        
     if (working == 1){
         String tipoTransporte = (String) jCTipoTransporte.getSelectedItem();
         int indiceParentesis = tipoTransporte.indexOf("(");
@@ -411,48 +484,72 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
         if (indiceParentesis != -1) {
             tipoTransporte = tipoTransporte.substring(0, indiceParentesis).trim();
         }
-    
+
         try {
-            String sql = "SELECT idPasaje, importe, estado FROM pasaje WHERE tipoTransporte = ?";
+            String sql = "SELECT idPasaje, tipoTransporte, importe, estado, idCiudad FROM pasaje WHERE tipoTransporte = ?";
             PreparedStatement preparedStatement = con.prepareStatement(sql);
             preparedStatement.setString(1, tipoTransporte);
 
             ResultSet resultSet = preparedStatement.executeQuery();
+            
+            if (resultSet.next()) {
+                boolean estado = resultSet.getBoolean("estado");
 
-        if (resultSet.next()) {
-            boolean estado = resultSet.getBoolean("estado");
+                if (estado) {
+                    String precio = resultSet.getString("importe");
+                    int idCiudad = resultSet.getInt("idCiudad");
 
-            if (estado) {
-                double precio = resultSet.getDouble("importe");
-                // Actualiza el JTextField con el precio del tipoTransporte seleccionado
-                jTextTotal.setText(String.valueOf(precio));
-                // Puedes usar pasajeID si es necesario para otras operaciones
+                    // Obtener el nombre de la ciudad
+                    String nombreCiudad = obtenerNombreCiudad(idCiudad);
+
+                    // Actualiza los JTextField con los datos obtenidos
+                    jTextTotal.setText(String.valueOf(precio));
+                    jTextTipoTransporte.setEditable(false);
+                    jTextTipoTransporte.setText(tipoTransporte);
+                    jTextPrecio.setText(precio);
+                    jComboCiudad.setSelectedItem(nombreCiudad);
+                    jComboCiudad.setEnabled(false);
+                } else {
+                    jTextTotal.setText("NaN Boolean");
+                }
             } else {
-                jTextTotal.setText("Como llegamos aca? err boolean");
+                // Manejar el caso donde no se encuentra el pasaje con el tipoTransporte seleccionado
+                jTextTotal.setText("Precio no encontrado");
             }
-        } else {
-            // Manejar el caso donde no se encuentra el pasaje con el tipoTransporte seleccionado
-            jTextTotal.setText("Precio no encontrado"); 
-        }
         } catch (SQLException ex) {
-        // Manejar excepciones SQL, por ejemplo, mostrando un mensaje de error
+            // Manejar excepciones SQL, por ejemplo, mostrando un mensaje de error
             ex.printStackTrace();
         }
-      
-        }
+    }
     working2 = 1;
     }//GEN-LAST:event_jCTipoTransporteActionPerformed
 
+    private String obtenerNombreCiudad(int idCiudad) throws SQLException {
+    String nombreCiudad = "No encontrado";
+
+    String consulta = "SELECT nombre FROM ciudad WHERE idCiudad = ?";
+    try (PreparedStatement statement = con.prepareStatement(consulta)) {
+        statement.setInt(1, idCiudad);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                nombreCiudad = resultSet.getString("nombre");
+            }
+        }
+    }
+
+    return nombreCiudad;
+}
+    
     private void jBLimpíarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpíarActionPerformed
             if (working2 == 1){
                 working = 0;
             try {
-                String sql = "SELECT p.tipoTransporte,p.estado, c.nombre FROM pasaje p JOIN ciudad c ON p.idCiudad = c.idCiudad";
+                String sql = "SELECT p.tipoTransporte,p.estado,p.importe, c.nombre FROM pasaje p JOIN ciudad c ON p.idCiudad = c.idCiudad";
 
                 PreparedStatement preparedStatement = con.prepareStatement(sql);
                 ResultSet resultSet = preparedStatement.executeQuery();
                 jCTipoTransporte.removeAllItems();
-
+                
             while (resultSet.next()) {
                 String tipoTransporte = resultSet.getString("tipoTransporte");
                 String nombreCiudad = resultSet.getString("nombre");
@@ -460,6 +557,8 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
                 boolean estado = resultSet.getBoolean("estado");
                 if (estado == true){
                     jCTipoTransporte.addItem(item);
+                    jTextTipoTransporte.setEditable(false);
+                    jComboCiudad.setEnabled(false);
                 }           
            
             }
@@ -467,6 +566,7 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(GestionPasaje.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
             String tipoTransporte = (String) jCTipoTransporte.getSelectedItem();
             int indiceParentesis = tipoTransporte.indexOf("(");
             if (indiceParentesis != -1) {
@@ -491,26 +591,32 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
             }
         }
             working = 1;
+             String sql3 = "SELECT tipoTransporte FROM pasaje WHERE estado = ?";
+        boolean estado2 = false;
+        try (PreparedStatement statement = con.prepareStatement(sql3)) {
+            // Establecer el estado en la consulta
+            statement.setBoolean(1, estado2);
+            
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet resultSet = statement.executeQuery()) {
+                // Limpiar la JComboBox antes de añadir nuevos elementos
+                jComboBoxTD.removeAllItems();
+                
+                // Añadir tipos de transporte a la JComboBox
+                while (resultSet.next()) {
+                    String tipoTransporte = resultSet.getString("tipoTransporte");
+                    jComboBoxTD.addItem(tipoTransporte);
+                }
+            }
+        } catch (SQLException e) {
+            // Manejar las excepciones (por ejemplo, imprimir errores o lanzar una excepción personalizada)
+            e.printStackTrace();
+        }
+        
     }//GEN-LAST:event_jBLimpíarActionPerformed
 
     private void jComboCiudadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboCiudadActionPerformed
-      if (city == 1){
-        String sql = "SELECT nombre FROM ciudad";
-        try (PreparedStatement preparedStatement = con.prepareStatement(sql);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            jComboCiudad.removeAllItems(); // Limpia el JComboBox antes de cargar nuevos datos
-
-            while (resultSet.next()) {
-                String nombreCiudad = resultSet.getString("nombre");
-                jComboCiudad.addItem(nombreCiudad); // Agrega cada ciudad al JComboBox
-            }
-        } catch (SQLException ex) {
-            // Manejar excepciones SQL, por ejemplo, mostrando un mensaje de error
-            ex.printStackTrace();
-        }
-      }
-      city = 1;
     }//GEN-LAST:event_jComboCiudadActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -543,31 +649,128 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-    
-            try {
-                String sql = "SELECT p.tipoTransporte,p.estado, c.nombre FROM pasaje p JOIN ciudad c ON p.idCiudad = c.idCiudad";
+    private void jTextTipoTransporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTipoTransporteActionPerformed
+   
+    }//GEN-LAST:event_jTextTipoTransporteActionPerformed
 
-                PreparedStatement preparedStatement = con.prepareStatement(sql);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                jCTipoTransporte.removeAllItems();
+    private void jTextPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextPrecioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextPrecioActionPerformed
 
-            while (resultSet.next()) {
-                String tipoTransporte = resultSet.getString("tipoTransporte");
-                String nombreCiudad = resultSet.getString("nombre");
-                String item = tipoTransporte + " (Ciudad: " + nombreCiudad + ")";
-                boolean estado = resultSet.getBoolean("estado");
-                if (estado == true){
-                    jCTipoTransporte.addItem(item);
-                }           
-           
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jTextTipoTransporte.setEditable(true);
+        jTextTipoTransporte.setText("");
+        jTextPrecio.setText("");
+        jTextPrecio.setEditable(true);
+        jComboCiudad.setEnabled(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+              try {
+            // Obtener el tipo de transporte del JComboBox
+            String tipoTransporte = jTextTipoTransporte.getText();
+            int indiceParentesis = tipoTransporte.indexOf("(");
+            if (indiceParentesis != -1) {
+                tipoTransporte = tipoTransporte.substring(0, indiceParentesis).trim();
             }
 
-            } catch (SQLException ex) {
-                Logger.getLogger(GestionPasaje.class.getName()).log(Level.SEVERE, null, ex);
-            }        
-    }//GEN-LAST:event_jTextField1ActionPerformed
+            // Obtener el importe del JTextField
+            double importe = Double.parseDouble(jTextPrecio.getText());
 
+            // Obtener el nombre de la ciudad del JComboBox
+            String nombreCiudad = (String) jComboCiudad.getSelectedItem();
+
+            // Obtener el ID de la ciudad usando el nombre proporcionado
+            int idCiudad = obtenerIdCiudad(con, nombreCiudad);
+
+            // Consulta para insertar un nuevo registro en la tabla pasaje
+            String sql = "INSERT INTO pasaje (tipoTransporte , importe , estado, idCiudad) VALUES (?, ?, ?, ?)";
+            
+            boolean estado = true;
+            
+            // Crear un PreparedStatement para ejecutar la consulta
+            try (PreparedStatement statement = con.prepareStatement(sql)) {
+                // Establecer los valores en la consulta
+                statement.setString(1, tipoTransporte);
+                statement.setDouble(2, importe);
+                statement.setBoolean(3, estado);
+                statement.setInt(4, idCiudad);
+                
+                // Ejecutar la consulta para insertar el nuevo pasaje
+                statement.executeUpdate();
+                System.out.println("Nuevo pasaje insertado correctamente.");
+            }
+        } catch (SQLException | NumberFormatException e) {
+            // Manejar las excepciones (por ejemplo, imprimir errores o lanzar una excepción personalizada)
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBoxTDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTDActionPerformed
+    
+    }//GEN-LAST:event_jComboBoxTDActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+           String tipoTransporte = (String) jComboBoxTD.getSelectedItem();
+        
+        // Consulta para actualizar el estado del tipo de transporte a true
+        String sql = "UPDATE pasaje SET estado = true WHERE tipoTransporte = ?";
+        
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            // Establecer el tipo de transporte en la consulta
+            statement.setString(1, tipoTransporte);
+            
+            // Ejecutar la consulta para actualizar el estado del tipo de transporte a true
+            statement.executeUpdate();
+            System.out.println("Estado de '" + tipoTransporte + "' actualizado a true correctamente.");
+        } catch (SQLException e) {
+            // Manejar las excepciones (por ejemplo, imprimir errores o lanzar una excepción personalizada)
+            e.printStackTrace();
+        }
+        
+         String sql3 = "SELECT tipoTransporte FROM pasaje WHERE estado = ?";
+        boolean estado2 = false;
+        try (PreparedStatement statement = con.prepareStatement(sql3)) {
+            // Establecer el estado en la consulta
+            statement.setBoolean(1, estado2);
+            
+            // Ejecutar la consulta y obtener los resultados
+            try (ResultSet resultSet = statement.executeQuery()) {
+                // Limpiar la JComboBox antes de añadir nuevos elementos
+                jComboBoxTD.removeAllItems();
+                
+                // Añadir tipos de transporte a la JComboBox
+                while (resultSet.next()) {
+                    
+                    jComboBoxTD.addItem(tipoTransporte);
+                }
+            }
+        } catch (SQLException e) {
+            // Manejar las excepciones (por ejemplo, imprimir errores o lanzar una excepción personalizada)
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+      private static int obtenerIdCiudad(Connection con, String nombreCiudad) throws SQLException {
+        // Consulta para obtener el ID de la ciudad usando el nombre
+        String sql = "SELECT idCiudad FROM ciudad WHERE nombre = ?";
+        
+        // Crear un PreparedStatement para ejecutar la consulta
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            // Establecer el nombre de la ciudad en la consulta
+            statement.setString(1, nombreCiudad);
+
+            // Ejecutar la consulta y obtener el ID de la ciudad
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("idCiudad");
+                }
+            }
+        }
+        
+        // Si no se encuentra la ciudad, retornar -1 o lanzar una excepción según sea necesario
+        return -1;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Choice choice1;
@@ -579,7 +782,7 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox<String> jCTipoTransporte;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxTD;
     private javax.swing.JComboBox<String> jComboCiudad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -593,8 +796,8 @@ public class GestionPasaje extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jSalir;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextPrecio;
+    private javax.swing.JTextField jTextTipoTransporte;
     private javax.swing.JTextField jTextTotal;
     // End of variables declaration//GEN-END:variables
 //quitar barra superior
