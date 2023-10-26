@@ -71,7 +71,11 @@ public class Ciudad {
 
     @Override
     public String toString() {
-        return "Ciudad{" + "idCiudad=" + idCiudad + ", nombre=" + nombre + ", pais=" + pais + ", estado=" + estado + ", provincia=" + provincia + '}';
+        return "" + idCiudad + " - " + nombre +", "+ provincia +", " + pais + "";
+    }
+
+    public boolean startsWith(String idCiudadOrigen) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
