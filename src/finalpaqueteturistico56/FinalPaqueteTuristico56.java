@@ -16,7 +16,11 @@ public class FinalPaqueteTuristico56 {
         Connection con = Conexion.getConexion();
         PaqueteData uno = new PaqueteData();
         Paquete dos = new Paquete();
+<<<<<<< Updated upstream
      
+=======
+        
+>>>>>>> Stashed changes
         
     }
     
