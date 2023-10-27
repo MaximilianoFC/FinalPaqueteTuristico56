@@ -82,7 +82,7 @@ public class Paquete {
     
      @Override
     public String toString() {
-    return ""+idPaquete;
+    return "Paquete{" + "idPaquete=" + idPaquete + ", idCiudadOrigen=" + origen.getNombre() + ", idCiudadOrigen=" + origen.getProvincia() + ", idCiudadDestino=" + destino.getNombre() + ", idCiudadDestino=" + destino.getProvincia()+'}';
     
     }
 }

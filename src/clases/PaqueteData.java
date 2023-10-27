@@ -52,9 +52,8 @@ public class PaqueteData {
              }
              
              ps.close();
-
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla paquete");
+             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla paquete"+ex.getMessage());
          }
         
         
@@ -79,7 +78,7 @@ public class PaqueteData {
                  JOptionPane.showMessageDialog(null, "Paquete modificado");
              }
          } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(null, "Error al modificar el paquete");
+             JOptionPane.showMessageDialog(null, "Error al modificar el paquete"+ex.getMessage());
          }
         
     
@@ -98,7 +97,7 @@ public class PaqueteData {
             }
         
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla paquete");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla paquete"+ex.getMessage());
         }
     }
     
@@ -115,7 +114,40 @@ public class PaqueteData {
             }
         
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla paquete");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla paquete"+ex.getMessage());
         }
-    }   
+    }
+    
+    
+    
+//    public List<Paquete> obtenerPaquetes(){
+//        
+//        ArrayList<Paquete> listaDePaquetes=new ArrayList<>();
+//        
+//        String sql="SELECT * FROM paquete";
+//        
+//             try {
+//                 PreparedStatement ps=con.prepareStatement(sql);
+//                 ResultSet rs=ps.executeQuery();
+//                 while (rs.next()){
+//                     Paquete paquete=new Paquete();
+//                     paquete.setIdPaquete(rs.getInt("idPaquete"));
+//                     Ciudad ciudadOrigen=ciudadData.buscarCiudad(rs.getInt(idCiudadOrigen));
+//                     Ciudad ciudadDestino=ciudadData.buscarCiudad(rs.getInt(idCiudadDestino));
+//                     Alojamiento aloj=alojamientoData.buscarAlojamiento(rs.getInt(idAlojamiento));
+//                     Pasaje pasaje=pasajeData.buscarPasaje(rs.getInt(idPasaje));
+//                     paquete.setEstado(rs.getBoolean("estado"));
+//                     paquete.setOrigen(ciudadOrigen);
+//                     paquete.setDestino(ciudadDestino);
+//                     paquete.setAlojamiento(aloj);
+//                     paquete.setPasaje(pasaje);
+//                     listaDePaquetes.add(paquete);
+//                 }
+//                 ps.close();  
+//             } catch (SQLException ex) {
+//                 JOptionPane.showMessageDialog(null, "Error al acceder a la tabla paquete"+ex.getMessage());
+//             }
+//             return listaDePaquetes;
+//    }
+//    
 }
