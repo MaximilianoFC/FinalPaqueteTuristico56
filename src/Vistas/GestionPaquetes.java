@@ -6,7 +6,7 @@ import Entidades.Ciudad;
 import Entidades.Paquete;
 import Entidades.Pasaje;
 import clases.PaqueteData;
-import copia.Conexion;
+import finalpaqueteturistico56.Conexion;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.Date;
