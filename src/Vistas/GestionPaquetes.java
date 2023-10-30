@@ -6,7 +6,7 @@ import Entidades.Ciudad;
 import Entidades.Paquete;
 import Entidades.Pasaje;
 import clases.PaqueteData;
-import finalpaqueteturistico56.Conexion;
+import copia.Conexion;
 import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,14 +41,18 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         List <Ciudad> listaDeCiudades=listarCiudades(); 
         cargarCiudadOrigen(listaDeCiudades);
         cargarCiudadDestino(listaDeCiudades);
+        cargarIdPaquetes();
         jBReactivar.setEnabled(false);
         jBBorrar.setEnabled(false);
-        jBGuardar.setEnabled(false);
+        jBActualizar.setEnabled(false);
+        jBActualizar.setEnabled(false);
+        jBNuevo.setEnabled(false);
+        jBCalcularPrecio.setEnabled(false);
+        jBPrecioConIncremento.setEnabled(false);
+        jBMultiplicarPorPersona.setEnabled(false);   
         
     }
     
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -58,7 +63,7 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jSalir = new javax.swing.JLabel();
         jBBorrar = new javax.swing.JButton();
-        jBGuardar = new javax.swing.JButton();
+        jBActualizar = new javax.swing.JButton();
         jBReactivar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -91,16 +96,17 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         jBNuevo = new javax.swing.JButton();
         jBLimpíar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTFIdPaquete = new javax.swing.JTextField();
         jBBuscar = new javax.swing.JButton();
         jRBInactivo = new javax.swing.JRadioButton();
         jRBActivo = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
+        jCBIdPaquete = new javax.swing.JComboBox<>();
 
         setMaximumSize(new java.awt.Dimension(1000, 1000));
         setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         jPanel1.setBackground(new java.awt.Color(189, 238, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1000, 1000));
         jPanel1.setMinimumSize(new java.awt.Dimension(1000, 1000));
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
@@ -127,11 +133,11 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             }
         });
 
-        jBGuardar.setBackground(new java.awt.Color(255, 255, 255));
-        jBGuardar.setText("Actualizar");
-        jBGuardar.addActionListener(new java.awt.event.ActionListener() {
+        jBActualizar.setBackground(new java.awt.Color(255, 255, 255));
+        jBActualizar.setText("Actualizar");
+        jBActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBGuardarActionPerformed(evt);
+                jBActualizarActionPerformed(evt);
             }
         });
 
@@ -413,28 +419,30 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
                     .addComponent(jTFPrecioCantidadDias, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17)
                     .addComponent(jLabel16)
-                    .addComponent(jCBPasaje, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jCBPasaje, 0, 180, Short.MAX_VALUE))
                 .addGap(158, 158, 158))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTFIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jBBuscar)
-                .addGap(41, 41, 41)
-                .addComponent(jLabel6)
-                .addGap(26, 26, 26)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(392, 392, 392)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRBActivo)
-                    .addComponent(jRBInactivo))
+                    .addComponent(jRBInactivo)
+                    .addComponent(jRBActivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBReactivar)
                 .addGap(18, 18, 18)
                 .addComponent(jBBorrar)
                 .addGap(18, 18, 18)
-                .addComponent(jBGuardar)
+                .addComponent(jBActualizar)
                 .addGap(196, 196, 196))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jCBIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBBuscar)
+                .addGap(26, 26, 26)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,15 +495,17 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jRBActivo)
+                .addGap(2, 2, 2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jBBuscar)
+                    .addComponent(jCBIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTFIdPaquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBBuscar)
                     .addComponent(jBReactivar)
                     .addComponent(jBBorrar)
-                    .addComponent(jBGuardar)
-                    .addComponent(jLabel6)
+                    .addComponent(jBActualizar)
                     .addComponent(jRBInactivo))
                 .addGap(20, 20, 20))
         );
@@ -504,11 +514,11 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 990, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 971, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -523,8 +533,9 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
               
     }//GEN-LAST:event_jSalirMouseClicked
    
-    private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
+    private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
 
+        try{
         Ciudad ciudadOrigen=(Ciudad) jCBCiudadOrigen.getSelectedItem();
         int idCiudadOrigen=ciudadOrigen.getIdCiudad();
         
@@ -535,14 +546,18 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         
         int idPasaje=obtenerIdPasaje();
         
-        int idPaquete=Integer.parseInt(jTFIdPaquete.getText());
+        int idPaquete= (int) jCBIdPaquete.getSelectedItem();
         
         PaqueteData paqueteData=new PaqueteData();
         paqueteData.modificarPaquete(idPaquete, idCiudadOrigen, idCiudadDestino, idAlojamiento, idPasaje);
-    }//GEN-LAST:event_jBGuardarActionPerformed
+        }catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Falta seleccionar algun dato");   
+        }
+    }//GEN-LAST:event_jBActualizarActionPerformed
 
     private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
 
+        try{
         Ciudad ciudadOrigen=(Ciudad) jCBCiudadOrigen.getSelectedItem();
         int idCiudadOrigen=ciudadOrigen.getIdCiudad();
         
@@ -555,7 +570,9 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         
         PaqueteData paqueteData=new PaqueteData();
         paqueteData.agregarPaquete(idCiudadOrigen, idCiudadDestino, idAlojamiento, idPasaje, true);
-        
+        }catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(null, "Falta seleccionar algun elemento");
+        }
     }//GEN-LAST:event_jBNuevoActionPerformed
 
     private void jRBAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRBAltaActionPerformed
@@ -589,6 +606,11 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         jRBAlta.setSelected(false);
         jRBMedia.setSelected(false);
         jRBBaja.setSelected(false);
+        jBCalcularPrecio.setEnabled(true);
+        
+        if (!(jRBActivo.isSelected()) && !(jRBInactivo.isSelected())) {
+            jBNuevo.setEnabled(true);
+        }
         
         int filaSeleccionada = jTAlojamiento.getSelectedRow();
         if (filaSeleccionada!=-1) {
@@ -633,6 +655,7 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
 
     private void jBCalcularPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCalcularPrecioActionPerformed
         // TODO add your handling code here:
+        jBPrecioConIncremento.setEnabled(true);
         double precio=calcularPrecio();
         jTFPrecioPorPersona.setText(String.valueOf(precio));
 
@@ -640,6 +663,8 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
 
     private void jBPrecioConIncrementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBPrecioConIncrementoActionPerformed
         // TODO add your handling code here:
+        
+        jBMultiplicarPorPersona.setEnabled(true);
         
         double precioSinIncremento=Double.parseDouble(jTFPrecioPorPersona.getText());
         
@@ -672,10 +697,15 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
 
     private void jBMultiplicarPorPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMultiplicarPorPersonaActionPerformed
         // TODO add your handling code here:
+        //Agregar excepcion o if para validar ingreso de JTFCantidadPersonas
+        try{
         double precioPorPersona=Double.parseDouble(jTFPrecioConIncremento.getText());
         int cantidadDePersonas=Integer.parseInt(jTFCantidadPersonas.getText());
         
         jTFPrecioPorXPersonas.setText(String.valueOf(precioPorPersona*cantidadDePersonas));
+        }catch (IllegalArgumentException ex){
+            JOptionPane.showMessageDialog(null, "Dato invalido");
+        }
     }//GEN-LAST:event_jBMultiplicarPorPersonaActionPerformed
 
     private void jBLimpíarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimpíarActionPerformed
@@ -692,26 +722,26 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         jTFPrecioConIncremento.setText("");
         jTFPrecioPorPersona.setText("");
         jTFPrecioPorXPersonas.setText("");
+        jBCalcularPrecio.setEnabled(false);
+        jBPrecioConIncremento.setEnabled(false);
+        jBMultiplicarPorPersona.setEnabled(false);  
         jRBActivo.setSelected(false);
         jRBInactivo.setSelected(false);
-        jTFIdPaquete.setText("");
-        jBNuevo.setEnabled(true);
+        jBNuevo.setEnabled(false);
         jBReactivar.setEnabled(false);
         jBBorrar.setEnabled(false);
-        jBGuardar.setEnabled(false);
+        jBActualizar.setEnabled(false);
         
     }//GEN-LAST:event_jBLimpíarActionPerformed
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         // TODO add your handling code here:
-        int idPaquete=Integer.parseInt(jTFIdPaquete.getText());
+        int idPaquete= (int) jCBIdPaquete.getSelectedItem();
         
         jRBActivo.setSelected(false);
         jRBInactivo.setSelected(false);
         jBNuevo.setEnabled(false);
-        jBReactivar.setEnabled(true);
-        jBBorrar.setEnabled(true);
-        jBGuardar.setEnabled(true);
+        jBActualizar.setEnabled(true);
         
         
         String sql= "SELECT estado, idCiudadOrigen, idCiudadDestino, idAlojamiento, idPasaje FROM paquete WHERE idPaquete=?";
@@ -725,43 +755,43 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             while (rs.next()){
                 
                 boolean estado=rs.getBoolean("estado");
-                if (estado) {
-                    jRBActivo.setSelected(true);
-                }else{
-                    jRBInactivo.setSelected(true);
-                }
+                    if (estado) {
+                        jRBActivo.setSelected(true);
+                        jBBorrar.setEnabled(true);
+                        jBReactivar.setEnabled(false);
+                    }else{
+                        jRBInactivo.setSelected(true);
+                        jBReactivar.setEnabled(true); 
+                        jBBorrar.setEnabled(false);
+                    }
                 
                 String idCiudadOrigen=String.valueOf(rs.getInt("idCiudadOrigen"));
-                for (int i = 0; i < jCBCiudadOrigen.getItemCount(); i++) {
-                String item=String.valueOf(jCBCiudadOrigen.getItemAt(i));
-                
-
-                if (item.startsWith(idCiudadOrigen)) {
-                    jCBCiudadOrigen.setSelectedIndex(i); 
-                    break;
+                    for (int i = 0; i < jCBCiudadOrigen.getItemCount(); i++) {
+                    String item=String.valueOf(jCBCiudadOrigen.getItemAt(i));
+                        if (item.startsWith(idCiudadOrigen)) {
+                            jCBCiudadOrigen.setSelectedIndex(i); 
+                            break;
+                        }
                     }
-                }
-                String idCiudadDestino=String.valueOf(rs.getInt("idCiudadDestino"));
-                for (int i = 0; i < jCBCiudadDestino.getItemCount(); i++) {
-                String item=String.valueOf(jCBCiudadDestino.getItemAt(i));
                     
-                if (item.startsWith(idCiudadDestino)) {
-                    jCBCiudadDestino.setSelectedIndex(i);
-                    break;
+                String idCiudadDestino=String.valueOf(rs.getInt("idCiudadDestino"));
+                    for (int i = 0; i < jCBCiudadDestino.getItemCount(); i++) {
+                    String item=String.valueOf(jCBCiudadDestino.getItemAt(i));
+                        if (item.startsWith(idCiudadDestino)) {
+                            jCBCiudadDestino.setSelectedIndex(i);
+                            break;
+                        }
                     }
-                }
                 
                 String idAlojamiento = String.valueOf(rs.getInt("idAlojamiento")); // La condición que deseas aplicar
-
-                for (int i = 1; i < modelo.getRowCount(); i++) {
-                    Object valor = modelo.getValueAt(i, 0); // Reemplaza 'columnaDeseada' con el índice de la columna que desees verificar
-
-                    // Aplicar la condición (por ejemplo, igualdad)
-                    if (valor.equals(idAlojamiento)) {
-                        jTAlojamiento.setRowSelectionInterval(i, i); 
-                        break;
+                    for (int i = 1; i < modelo.getRowCount(); i++) {
+                        Object valor = modelo.getValueAt(i, 0); // Reemplaza 'columnaDeseada' con el índice de la columna que desees verificar
+                        String valor2=String.valueOf(valor);
+                        if (valor2.equals(idAlojamiento)) {
+                                jTAlojamiento.setRowSelectionInterval(i, i); 
+                                break;
+                            }
                     }
-                }
                 
                 String idPasaje=String.valueOf(rs.getInt("idPasaje"));
                 for (int i = 0; i < jCBPasaje.getItemCount(); i++) {
@@ -777,31 +807,40 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla paquete"+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla paquete");
         }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBorrarActionPerformed
         // TODO add your handling code here:
-        int idPaquete= Integer.parseInt(jTFIdPaquete.getText());
+        int idPaquete= (int) jCBIdPaquete.getSelectedItem();
         PaqueteData paqueteData=new PaqueteData();
         paqueteData.bajaPaquete(idPaquete);
+        jRBActivo.setSelected(false);
+        jRBInactivo.setSelected(true);
+        jBReactivar.setEnabled(true);
+        jBBorrar.setEnabled(false);
+        
     }//GEN-LAST:event_jBBorrarActionPerformed
 
     private void jBReactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBReactivarActionPerformed
         // TODO add your handling code here
-        int idPaquete= Integer.parseInt(jTFIdPaquete.getText());
+        int idPaquete= (int) jCBIdPaquete.getSelectedItem();
         PaqueteData paqueteData=new PaqueteData();
         paqueteData.darAltaPaquete(idPaquete);
+        jRBActivo.setSelected(true);
+        jRBInactivo.setSelected(false);
+        jBReactivar.setEnabled(false);
+        jBBorrar.setEnabled(true);
     }//GEN-LAST:event_jBReactivarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jBActualizar;
     private javax.swing.JButton jBBorrar;
     private javax.swing.JButton jBBuscar;
     private javax.swing.JButton jBCalcularPrecio;
-    private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBLimpíar;
     private javax.swing.JButton jBMultiplicarPorPersona;
     private javax.swing.JButton jBNuevo;
@@ -809,6 +848,7 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBReactivar;
     private javax.swing.JComboBox<Ciudad> jCBCiudadDestino;
     private javax.swing.JComboBox<Ciudad> jCBCiudadOrigen;
+    private javax.swing.JComboBox<Integer> jCBIdPaquete;
     private javax.swing.JComboBox<Pasaje> jCBPasaje;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -836,7 +876,6 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTAlojamiento;
     private javax.swing.JTextField jTFCantidadPersonas;
-    private javax.swing.JTextField jTFIdPaquete;
     private javax.swing.JTextField jTFPrecioCantidadDias;
     private javax.swing.JTextField jTFPrecioConIncremento;
     private javax.swing.JTextField jTFPrecioPorPersona;
@@ -876,7 +915,7 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             ps.close();
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudad"+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla ciudad");
         }
         return listaDeCiudades;
     }
@@ -894,19 +933,6 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             jCBCiudadOrigen.addItem(item);
         }
     }
-    
-//    private int obtenerIdCiudadOrigen(){
-//        Ciudad ciudadOrigen=(Ciudad) jCBCiudadOrigen.getSelectedItem();
-//        int idCiudad=ciudadOrigen.getIdCiudad();
-//        return idCiudad;
-//    }
-//    
-//    
-//    private int obtenerIdCiudadDestino(){
-//        Ciudad ciudadDestino=(Ciudad) jCBCiudadDestino.getSelectedItem();
-//        int idCiudad=ciudadDestino.getIdCiudad();
-//        return idCiudad;
-//    }
     
     private void armarCabeceraTabla(){
         modelo.addColumn("id");
@@ -939,7 +965,7 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
              }
             
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla alojamiento"+ ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla alojamiento");
             }    
     }
 
@@ -975,7 +1001,7 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
             ps.close();
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasaje"+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla pasaje");
         }
         return listaDePasajes;
     }
@@ -1001,4 +1027,73 @@ public class GestionPaquetes extends javax.swing.JInternalFrame {
         double precio=precioPorCantidadDias+importePasaje;
         return precio;
     }
+    
+    private void cargarIdPaquetes(){
+        ArrayList<Integer> lista=new ArrayList<>();
+        String sql="SELECT idPaquete FROM paquete";
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            
+            while (rs.next()){
+                int idPaquete=(rs.getInt("idPaquete"));
+                lista.add(idPaquete);
+                System.out.println(lista);
+                
+            }
+            ps.close();
+            Collections.sort(lista);
+            for (int item:lista) {
+            jCBIdPaquete.addItem(item);
+        }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al ingresar a la tabla paquete");
+        }
+    
+    }
+    
+//    private boolean comprobarDatos(boolean id) {
+//        //este metodo comprueba que todos los datos del alojamiento sean
+//        //validos para subirlo a la base de datos.
+//        //retornara true si son validos, false si uno no es valido.
+//
+//        boolean retorno = true;
+//
+//        //se llama al metodo con un true para corroborar el id, y con un false para no corroborarlo.
+//        if (id == true) {
+//            //si el id es nulo, o si no contiene solo numeros, devuelve false
+//            //.matches compara si un String contiene solo digitos o no devolviendo un booleano.
+//            if (jTIDbuscar.getText().isEmpty() || jTIDbuscar.getText().matches("\\d+") != true) {
+//                retorno = false;
+//            }
+//        }
+//if (jTTipo.getText().isEmpty()) {
+//            retorno = false;
+//        } else {
+//            for (char c : jTTipo.getText().toCharArray()) {
+//                if (Character.isDigit(c)) {
+//                    retorno = false;
+//                    break;
+//                }
+//            }
+//if (jTServicios.getText().isEmpty()) {
+//                retorno = false;
+//            } else {               
+//                if (jTImporte.getText().isEmpty() || jTImporte.getText().matches("\\d+") != true) {
+//                    retorno = false;
+//                } else {
+//                    if (jCBCiudades.getSelectedItem() == null) {
+//                        retorno = false;
+//                    } else {
+//                        if (jTFechaIngreso.getText().isEmpty() || jTFechaEgreso.getText().isEmpty()) {
+//                            retorno = false;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//return retorno;
+    
+    
 }
