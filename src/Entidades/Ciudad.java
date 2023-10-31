@@ -71,7 +71,8 @@ public class Ciudad {
 
     @Override
     public String toString() {
-        return nombre + ", " + provincia + ", " + pais ;
+        return idCiudad+", "+ nombre + ", " + provincia + ", " + pais ;
+               
     }
 
     public boolean startsWith(String idCiudadOrigen) {
