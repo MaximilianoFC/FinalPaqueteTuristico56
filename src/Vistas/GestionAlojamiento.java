@@ -263,10 +263,14 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
         });
 
         jTCiudadBuscar.setBackground(new java.awt.Color(255, 255, 255));
-        jTCiudadBuscar.setText("Ingrese la ciudad a buscar");
         jTCiudadBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTCiudadBuscarMouseClicked(evt);
+            }
+        });
+        jTCiudadBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTCiudadBuscarActionPerformed(evt);
             }
         });
 
@@ -443,7 +447,7 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -745,6 +749,10 @@ public final class GestionAlojamiento extends javax.swing.JInternalFrame {
         getDesktopPane().add(MS);
         MS.setVisible(true);
     }//GEN-LAST:event_jSalirMouseClicked
+
+    private void jTCiudadBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTCiudadBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTCiudadBuscarActionPerformed
 
 
           
